@@ -1,0 +1,48 @@
+Mon Oct  8 07:00:14 2018; ******** TCP/UDP service monitor started ********
+
+*** TCP/UDP traffic log, generated Mon Oct  8 07:01:14 2018
+
+TCP/22: 266 packets, 31176 bytes total,      4.15 kbps; 108 packets, 10940 bytes incoming,      1.46 kbps; 158 packets, 20236 bytes outgoing,      2.70 kbps
+
+UDP/53: 10 packets, 1050 bytes total,      0.14 kbps; 5 packets, 351 bytes incoming,      0.05 kbps; 5 packets, 699 bytes outgoing,      0.10 kbps
+
+TCP/8890: 4745 packets, 4007765 bytes total,    782.00 kbps; 1894 packets, 114879 bytes incoming,     22.41 kbps; 2851 packets, 3892886 bytes outgoing,    759.58 kbps
+
+TCP/53: 20 packets, 1404 bytes total,      0.27 kbps; 12 packets, 723 bytes incoming,      0.14 kbps; 8 packets, 681 bytes outgoing,      0.13 kbps
+
+TCP/443: 2480 packets, 3423948 bytes total,    668.08 kbps; 2138 packets, 117491 bytes incoming,     22.92 kbps; 342 packets, 3306457 bytes outgoing,    645.16 kbps
+
+
+Running time: 60 seconds
+
+
+*** TCP/UDP traffic log, generated Mon Oct  8 07:02:14 2018
+
+TCP/22: 575 packets, 67874 bytes total,      4.52 kbps; 234 packets, 22501 bytes incoming,      1.50 kbps; 341 packets, 45373 bytes outgoing,      3.02 kbps
+
+UDP/53: 18 packets, 1846 bytes total,      0.12 kbps; 9 packets, 639 bytes incoming,      0.04 kbps; 9 packets, 1207 bytes outgoing,      0.08 kbps
+
+TCP/8890: 8196 packets, 7165642 bytes total,    567.57 kbps; 3177 packets, 175531 bytes incoming,     13.90 kbps; 5019 packets, 6990111 bytes outgoing,    553.67 kbps
+
+TCP/53: 20 packets, 1404 bytes total,      0.10 kbps; 12 packets, 723 bytes incoming,      0.06 kbps; 8 packets, 681 bytes outgoing,      0.05 kbps
+
+TCP/443: 4260 packets, 5504353 bytes total,    435.98 kbps; 3785 packets, 190995 bytes incoming,     15.13 kbps; 475 packets, 5313358 bytes outgoing,    420.86 kbps
+
+
+Running time: 120 seconds
+*** TCP/UDP traffic log, generated Mon Oct  8 07:03:14 2018
+
+TCP/22: 947 packets, 114347 bytes total,      5.08 kbps; 388 packets, 36705 bytes incoming,      1.62 kbps; 559 packets, 77642 bytes outgoing,      3.45 kbps
+
+UDP/53: 26 packets, 2642 bytes total,      0.11 kbps; 13 packets, 927 bytes incoming,      0.04 kbps; 13 packets, 1715 bytes outgoing,      0.07 kbps
+
+TCP/8889: 8202 packets, 7165882 bytes total,    356.06 kbps; 3179 packets, 175611 bytes incoming,      8.72 kbps; 5023 packets, 6990271 bytes outgoing,    347.34 kbps
+
+TCP/53: 20 packets, 1404 bytes total,      0.06 kbps; 12 packets, 723 bytes incoming,      0.03 kbps; 8 packets, 681 bytes outgoing,      0.03 kbps
+
+TCP/443: 4268 packets, 5504673 bytes total,    273.52 kbps; 3789 packets, 191155 bytes incoming,      9.50 kbps; 479 packets, 5313518 bytes outgoing,    264.02 kbps
+
+
+Running time: 180 seconds
+
+
