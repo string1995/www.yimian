@@ -266,11 +266,11 @@ function array_orderby()
 				<h5>Theme Demo</h5>
 				<ul class="theme-demo clearfix">
 					<li>
-						<div class="img-box"><a href="sotto/"><img src="images/home/light.jpg" alt=""></a></div>
+						<div class="img-box"><a href="sotto/"><img src="https://obs-410c.obs.myhwclouds.com/html/cn/www/blog/images/home/light.jpg" alt=""></a></div>
 						<h6>Light layout</h6>
 					</li>
 					<li>
-						<div class="img-box"><a href="sotto-dark/"><img src="images/home/dark.jpg" alt=""></a></div>
+						<div class="img-box"><a href="sotto-dark/"><img src="https://obs-410c.obs.myhwclouds.com/html/cn/www/blog/images/home/dark.jpg" alt=""></a></div>
 						<h6>Dark layout</h6>
 					</li>
 				</ul>
@@ -351,7 +351,7 @@ function array_orderby()
 				<div class="ms-slide" data-delay="25" data-fill-mode="fill" >
 					<img class="ms-layer"
 						 src="images/blank.gif"
-						 data-src="images/home/panaroma1.jpg"
+						 data-src="https://obs-410c.obs.myhwclouds.com/html/cn/www/blog/images/home/panaroma1.jpg"
 						 alt=""
 						 style=""
 						 data-effect="t(false,850,n,n,n,n,n,n,n,n,n,n,n,n,n)"
@@ -415,7 +415,7 @@ function array_orderby()
 				<div class="ms-slide" data-delay="25" data-fill-mode="fill" >
 					<img class="ms-layer"
 						 src="images/blank.gif"
-						 data-src="images/home/panaroma2.jpg"
+						 data-src="https://obs-410c.obs.myhwclouds.com/html/cn/www/blog/images/home/panaroma2.jpg"
 						 alt=""
 						 style=""
 						 data-effect="t(false,850,n,n,n,n,n,n,n,n,n,n,n,n,n)"
@@ -500,7 +500,7 @@ function array_orderby()
 	{
 				echo '
 				<div class="single-blog-post">
-					<div class="image-box"><img src="images/blog/';echo $id[$item];echo '.jpg" alt="'; echo $title[$item];echo '"></div>
+					<div class="image-box"><img src="https://obs-410c.obs.myhwclouds.com/html/cn/www/blog/images/blog/';echo $id[$item];echo '.jpg" alt="'; echo $title[$item];echo '"></div>
 					<div class="post-meta-box bg-box">
 						<ul class="author-meta clearfix">
 							<li class="tag"><a href="tag.php?tag=';echo $class[$item];echo '">'; echo $class[$item];echo '</a></li>
@@ -538,7 +538,7 @@ function array_orderby()
 			<div class="col-lg-4 col-md-7 col-12 theme-main-sidebar">
 				<div class="sidebar-box bg-box about-me">
 					<h6 class="sidebar-title">About me</h6>
-					<img src="images/home/1.jpg" alt="">
+					<img src="https://obs-410c.obs.myhwclouds.com/html/cn/www/blog/images/home/1.jpg" alt="">
 					<p>Hi, I am David Walmart. As for now I'm only focusing my attention on enjoyment. I'm being my true self with the values, dreams and goals that I have....</p>
 					<div class="clearfix"><img src="images/home/sign.png" alt="" class="signature float-right"></div>
 				</div> <!-- /.about-me -->

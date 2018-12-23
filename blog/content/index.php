@@ -167,7 +167,7 @@ return ($row);
         <div class="gf-slider"> 
           <!-- slider -->
           <ul class="slides">
-            <li> <img src="../images/blog/<?php echo $id;?>.jpg" alt="<?php echo $title?>" />
+            <li> <img src="https://obs-410c.obs.myhwclouds.com/html/cn/www/blog/images/blog/<?php echo $id;?>.jpg" alt="<?php echo $title?>" />
               <p class="flex-caption"><?php echo $abstract?></p>
             </li>
           </ul>
