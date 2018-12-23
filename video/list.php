@@ -15,6 +15,7 @@ $series= sql_data($conn,'videoIndx','idd',$idd);
 
 $seriesName= $series['series'];
 
+$class= $series['class'];
 
 $sql = "SELECT * FROM video where idd=$idd";
 
@@ -193,6 +194,8 @@ if ($result->num_rows > 0) {
 } else {
     echo "404 No Found!";
 }?>
+						</br></br><p><a href="acg.php?class=<?php echo $class?>">Click here to go back~</a></p>
+				</br>
 
                     </div>
                 </div>

@@ -2,6 +2,119 @@
 <?php 
 $id=$_GET['id'];
 $auto=$_GET['auto'];
+$conn=database_cnnct();
+
+//get row info form table blog with id
+
+
+
+$sql = "SELECT * FROM videoRedirect";
+
+
+$result = $conn->query($sql);
+
+
+$sql3 = "SELECT * FROM videoToUrl";
+
+$result2 = $conn->query($sql3);
+?>
+
+
+<?php //declear function
+
+
+//fnct of get usr ip::()::(ip)
+function getip() 
+{
+	if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown")) 
+	{
+		$ip = getenv("HTTP_CLIENT_IP");
+	} 
+	else
+		if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown")) 
+		{
+			$ip = getenv("HTTP_X_FORWARDED_FOR");
+		}
+		else
+			if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR"), "unknown")) 
+			{
+				$ip = getenv("REMOTE_ADDR");
+			} 
+			else
+				if (isset ($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown")) 
+				{
+					$ip = $_SERVER['REMOTE_ADDR'];
+				} 
+				else 
+				{
+					$ip = "unknown";
+				}
+return ($ip);
+}
+
+
+//fnct of connecting database::()::(database conn)
+function database_cnnct ()
+{
+$servername = "114.116.65.152";
+$username = "yimian";
+$password = "Lymian0904@112";
+$dbname = "yimian";
+
+// 创建连接
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+	
+
+if ($conn->connect_error) 
+{
+    die("连接失败: " . $conn->connect_error);
+} 
+
+return ($conn);
+}
+
+
+//fnct of get table row number::(data_cnnct var,table name) ::(row number)
+function sql_rowNum($conn,$tableSql)
+{
+$row_count = $conn->query("SELECT COUNT(*) FROM $tableSql");   
+list($row_num) = $row_count->fetch_row(); 
+return ($row_num);
+}
+
+//fnct of getting row data from database::(data_cnnct var, table name,column name, column value)::(row info)
+function sql_data($conn,$table,$clmnName,$value)
+{
+$sql = "SELECT * FROM $table where $clmnName=$value";
+
+$result = $conn->query($sql);
+///禁止非法访问
+if ($result->num_rows > 0) {}else{echo "<script>alert('Illegal Visit!');setTimeout(function(){top.location='/404.php';},0)</script>";}
+
+$row = $result->fetch_assoc();
+
+return ($row);
+
+}
+
+function array_orderby()
+{
+    $args = func_get_args();
+    $data = array_shift($args);
+    foreach ($args as $n => $field) {
+        if (is_string($field)) {
+            $tmp = array();
+            foreach ($data as $key => $row)
+                $tmp[$key] = $row[$field];
+                $args[$n] = $tmp;
+        }
+    }
+    $args[] = &$data;
+    call_user_func_array('array_multisort', $args);
+    return array_pop($args);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -14,12 +127,37 @@ $auto=$_GET['auto'];
         <meta name="viewport" content="width=device-width, initial-scale=1">		
 		<style type="text/css">body{margin:0;padding:0px;font-family:"Microsoft YaHei",YaHei,"微软雅黑",SimHei,"黑体";font-size:14px}</style>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script src="js/simpleCanvas.js"></script>
 	</head>
 
 	<body>
 		<div id="video" style="width: 100%; height: 400px;">
 			<video id="videocontainer" src="http://img.ksbbs.com/asset/Mon_1703/eb048d7839442d0.mp4"></video>
 		</div>
+		
+<?php
+echo "<script> var rdrctId1 = new Array();var rdrctId2 = new Array();var urlId = new Array();var urlUrl = new Array();";
+if ($result->num_rows > 0) {
+    // 输出数据
+    while($row = $result->fetch_assoc()) {	
+
+		$tmp_id1=$row['id'];
+		$tmp_id2=$row['toid'];
+		echo "rdrctId1.push($tmp_id1);rdrctId2.push($tmp_id2);";
+		
+	}}
+		
+	if ($result2->num_rows > 0) {
+    // 输出数据
+    while($row1 = $result2->fetch_assoc()) {	
+
+		$url_id=$row1['id'];
+		$url_url=$row1['url'];
+		echo "urlId.push($url_id);urlUrl.push(\"$url_url\");";
+		
+	}}	
+echo "</script>";
+?>
 		<script type="text/javascript" src="../video/ckplayer/ckplayer.js"></script>
 		<script typr="text/javascript" >
 			
@@ -139,6 +277,11 @@ function cnnct(i)	{    $.ajax({
         data:  {"id": id_++},//使用这种数组方式的，得加下一句才可以，使用传统方式
         dataType: 'json',
 		success: function(msg){
+						for(var tmp_i=0;tmp_i<rdrctId1.length;tmp_i++)
+				{
+					if(id_-1==rdrctId1[tmp_i]) id_=rdrctId2[tmp_i];
+					//alert('ddd'+id);
+				}
 				if(i==1){videoPHP1(msg);}
 			if(i==2){videoPHP2(msg);}
 			if(i==3){videoPHP3(msg);}
@@ -173,6 +316,28 @@ function videoPHP3(msg){
 			
 			
 function next1(){
+				for(var tmp_i=0;tmp_i<rdrctId1.length;tmp_i++)
+				{
+					if(id_-1==rdrctId1[tmp_i]) id_=rdrctId2[tmp_i];
+					//alert('ddd'+id);
+				}
+		//在这里添加需要跳转衔接的视频
+	//alert(id_+'a');
+			
+			$.post("./videocookie.php",{
+			watching: id_-1
+		},
+		function(){}
+				  );	
+			
+		$.post("./fp.php",{
+			fp: simpleCanvas,
+			id: id-1
+		},
+		function(){}
+				  );	
+			
+			
 	window.location.href='./index_mobile.php?auto=1&id='+id_;
 }			
 			
@@ -193,8 +358,19 @@ function next1(){
 			var url1= '';
 			var url2= '';
 			var idd= 0;
+			
+				for(var tmp_i=0;tmp_i<urlId.length;tmp_i++)
+				{
+					if(id==urlId[tmp_i]) window.location.href=urlUrl[tmp_i];
+					//alert('ddd'+id);
+				}
 
-
+		$.post("./fp.php",{
+			fp: simpleCanvas,
+			id: id
+		},
+		function(){}
+				  );
 cnnct(3);
 
 //declear object var		
@@ -255,8 +431,21 @@ function timeHandler(t) {
 function play_status(obj){
 	   console.log(obj);
 		end=1;
-
-   
+//alert(id_+'b');
+   			
+			
+			$.post("./videocookie.php",{
+			watching: id_-1
+		},
+		function(){}
+				  );	
+			
+		$.post("./fp.php",{
+			fp: simpleCanvas,
+			id: id-1
+		},
+		function(){}
+				  );	
  
 setTimeout("window.location.href='./index_mobile.php?auto=1&id='+id_;" ,1000); 
 	tankuang('80%','正在跳转下一集..');

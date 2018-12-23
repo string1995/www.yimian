@@ -10,6 +10,9 @@
 	<title>Yimian Video</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/style.css">
+		<script type="text/javascript" src="../video/js/jquery.min.js"></script>
+<script src="js/simpleCanvas.js"></script>
+	
 
 
 </head>
@@ -68,7 +71,7 @@
 						
 						<h3><a href="./acg.php?class=4">TV Play (电视剧)</a></h3>
 						
-						<h3 id="p1" ></h3>
+						<h3 id="p1"></h3>
                     </div>
                 </div>
             </div>
@@ -130,35 +133,19 @@
 	</script>
 	<script>
 			
-				var cookie = {
-		set: function(name, value) {
-			var Days = 30;
-			var exp = new Date();
-			exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
-			document.cookie = name + '=' + escape(value) + ';expires=' + exp.toGMTString();
+	var watching=0;//alert(simpleCanvas);
+		$.post("./fpcheck.php",{
+			fp: simpleCanvas
 		},
-		get: function(name) {
-			var arr, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
-			if(arr = document.cookie.match(reg)) {
-				return unescape(arr[2]);
-			} else {
-				return null;
-			}
-		},
-		del: function(name) {
-			var exp = new Date();
-			exp.setTime(exp.getTime() - 1);
-			var cval = getCookie(name);
-			if(cval != null) {
-				document.cookie = name + '=' + cval + ';expires=' + exp.toGMTString();
-			}
-		}
-	};
-	var watching= 0;
+		function(msg){watching=msg.id;
+
 	
-	watching = cookie.get('watching');
+	//watching = cookie.get('watching');
 	if(watching){document.getElementById("p1").innerHTML='<a href="./video.php?auto=1&id='+watching+'">点这里继续上次播放！</a>';}
-	
+	}
+				  );
 	</script>
+	
+	
 </body>
 </html>

@@ -36,7 +36,7 @@ $phoneNumbers = [$tel];
 // 短信模板ID，需要在短信应用中申请
 if($tpl==1){
 $templateId = 205311;  // NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
-}
+
 // 签名
 $smsSign = "Yimian"; // NOTE: 这里的签名只是示例，请使用真实的已申请的签名，签名参数使用的是`签名内容`，而不是`签名ID`
 
@@ -66,8 +66,78 @@ $tel=$_POST['tel'];
 $sql="INSERT sms set ip='$ip',time=$time,tel='$phoneNumbers[0]',tpl='$tpl',val='$msg3',cnnct='$cnnct' ";
 	
 	if ($conn->query($sql) === TRUE) {$return_array = array(status=>1);}
+}
 
 
+// 短信模板ID，需要在短信应用中申请
+if($tpl==2){
+$templateId = 223060;  // NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
+
+// 签名
+$smsSign = "Yimian"; // NOTE: 这里的签名只是示例，请使用真实的已申请的签名，签名参数使用的是`签名内容`，而不是`签名ID`
+
+try {
+    $ssender = new SmsSingleSender($appid, $appkey);
+    $params = [$msg1,$msg2,"VPN",$msg3];
+    $result = $ssender->sendWithParam("86", $phoneNumbers[0], $templateId,
+        $params, $smsSign, "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
+    $rsp = json_decode($result);
+   echo $result;
+} catch(\Exception $e) {
+    echo var_dump($e);
+}
+echo "\n";
+
+$conn=database_cnnct();
+
+$ip= getip();
+
+$time=time();
+
+$shu='||';
+$cnnct=$msg1.$shu.$msg2.$shu.$msg3.$shu.$result;
+
+$tel=$_POST['tel'];
+
+$sql="INSERT sms set ip='$ip',time=$time,tel='$phoneNumbers[0]',tpl='$tpl',val='$msg3',cnnct='$cnnct' ";
+	
+	if ($conn->query($sql) === TRUE) {$return_array = array(status=>1);}
+}
+
+// 短信模板ID，需要在短信应用中申请
+if($tpl==3){
+$templateId = 244004;  // NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
+
+// 签名
+$smsSign = "Yimian"; // NOTE: 这里的签名只是示例，请使用真实的已申请的签名，签名参数使用的是`签名内容`，而不是`签名ID`
+
+try {
+    $ssender = new SmsSingleSender($appid, $appkey);
+    $params = [$msg1,"VPN"];
+    $result = $ssender->sendWithParam("86", $phoneNumbers[0], $templateId,
+        $params, $smsSign, "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
+    $rsp = json_decode($result);
+   echo $result;
+} catch(\Exception $e) {
+    echo var_dump($e);
+}
+echo "\n";
+
+$conn=database_cnnct();
+
+$ip= getip();
+
+$time=time();
+
+$shu='||';
+$cnnct=$msg1.$shu.$msg2.$shu.$msg3.$shu.$result;
+
+$tel=$_POST['tel'];
+
+$sql="INSERT sms set ip='$ip',time=$time,tel='$phoneNumbers[0]',tpl='$tpl',val='$msg3',cnnct='$cnnct' ";
+	
+	if ($conn->query($sql) === TRUE) {$return_array = array(status=>1);}
+}
 
 //fnct of get usr ip::()::(ip)
 function getip() 

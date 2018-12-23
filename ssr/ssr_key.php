@@ -12,9 +12,10 @@ $row=sql_data($conn,'ssr','port',$port);
 
 $passwd=$row['passwd'];
 
-$str="aes-256-cfb:$passwd@ssr.yimian.xyz:$port";
+$str=base64_encode("aes-256-cfb:$passwd@usa.ssr.yimian.xyz:$port")."
+ss://".base64_encode("aes-256-cfb:$passwd@aus.ssr.yimian.xyz:$port")."
+ss://".base64_encode("aes-256-cfb:$passwd@ssr.yimian.xyz:$port");
 
-$str=base64_encode($str);
 ?>
 
 
