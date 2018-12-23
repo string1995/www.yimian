@@ -26,7 +26,7 @@ if($login==1){echo '<script>window.location.href="./intro.php";</script>';}
 		
 	if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
 
- // alert('暂不支持iOS访问!');
+  alert('暂不支持iOS，您确定继续？');
 
 } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
 

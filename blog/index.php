@@ -179,7 +179,7 @@ function array_orderby()
 <!-- For IE -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- For Resposive Device -->
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <!-- For Window Tab Color -->
 <!-- Chrome, Firefox OS and Opera -->
 <meta name="theme-color" content="#2c2c2c">
@@ -291,9 +291,9 @@ function array_orderby()
 					<div class="news-bell">Recent Post :</div>
 					<div class="breaking-news easyTicker">
 						<div class="wrapper">
-							<div class="list"><a href="blog.php?id=<?php echo $row_num;?>"><?php echo $title[$row_num];?></a></div>
-							<div class="list"><a href="blog.php?id=<?php echo $row_num-1;?>"><?php echo $title[$row_num-1];?></a></div>
-							<div class="list"><a href="blog.php?id=<?php echo $row_num-2;?>"><?php echo $title[$row_num-2];?></a></div>
+							<div class="list"><a href="content/?id=<?php echo $row_num;?>"><?php echo $title[$row_num];?></a></div>
+							<div class="list"><a href="content/?id=<?php echo $row_num-1;?>"><?php echo $title[$row_num-1];?></a></div>
+							<div class="list"><a href="content/?id=<?php echo $row_num-2;?>"><?php echo $title[$row_num-2];?></a></div>
 						</div> <!-- /.wrapper -->
 					</div> <!-- /.breaking-news -->
 				</div>

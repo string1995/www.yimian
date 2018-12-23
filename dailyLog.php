@@ -190,7 +190,7 @@ for($i=0;$i<count($ssr_tel);$i++)
 
 $result = $conn->query($sql);
 ///禁止非法访问
-if ($result->num_rows > 0) {}else{echo "<script>alert('Illegal Visit!');setTimeout(function(){top.location='/404.php';},0)</script>";}
+if ($result->num_rows > 0) {}else{}
 
 $row = $result->fetch_assoc();
 

@@ -14,6 +14,8 @@ $row=sql_data($conn,'ssr','port',0);
 $port=$row['passwd'];
 $port++;
 
+if($tel==''||$name==''||empty($tel)||empty($name)){echo "<script>alert('Illegal Tel or Name!'); window.history.back(-1);</script>";exit();}
+
 $sql0="UPDATE ssr set passwd='$port' where port=0";
 
 $sql="INSERT user set ip='$ip',time=$time,tel='$tel',name='$name',count=0,ssr='$port' ";
