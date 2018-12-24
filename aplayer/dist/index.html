@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+
+</head>
+
+<body>
+
+
+
+
+
+	<div class="aplayer-wrap">
+    <div id="aplayer" class="aplayer">
+
+
+</div>
+</div>
+	<link rel="stylesheet" href="APlayer.min.css">
+	<script src="APlayer.min.js"></script>
+	<script>
+	const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    mini: false,
+    autoplay: false,
+    theme: '#FADFA3',
+    loop: 'all',
+    order: 'random',
+    preload: 'auto',
+    volume: 0.7,
+    mutex: true,
+    listFolded: false,
+    listMaxHeight: 90,
+    lrcType: 3,
+    audio: []
+});
+		
+	</script>
+	<script>ap.list.add([{
+    name: 'name3',
+    artist: 'artist3',
+    url: 'url.mp3',
+    cover: 'cover.jpg',
+    lrc: 'lrc.lrc',
+    theme: '#ebd0c2'
+}]);</script>
+
+</body>
+</html>
