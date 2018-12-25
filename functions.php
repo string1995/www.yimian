@@ -61,7 +61,7 @@ function yimian__footer($wordColor="#C7C7C7",$backgroundColor="#2B2B2B",$urlColo
 {
 	echo "	<style>/*footer theme*/footer{padding:1.5rem 1rem;color:".$wordColor.";font-size:1.2rem;line-height:1.4;text-align:center;background:".$backgroundColor.";border-top:1px solid #C7C7C7}a.footera:link{color: ".$urlColor." ; text-decoration:none;}a.footera:visited {color:#79CDCD}</style>
 	<script>function openwin(){window.open(\"https://cn.yimian.xyz/cv\");}</script>
-	<footer class=\"footer\">Copyright © 2018.<a class=\"footera\" target=\"_blank\" onclick=\"openwin()\" href=\"#\">Yimian LIU</a> All rights reserved.</footer>";
+	<footer class=\"footer\">Copyright © 2018.<a class=\"footera\" onclick=\"openwin()\" href=\"#\">Yimian LIU</a> All rights reserved.</footer>";
 	echo "</body>
 </html>";
 }
@@ -172,3 +172,63 @@ function aplayer__netease($playlistid="2012006204",$loadStart=0,$numLimit=10,$th
 }
 
 
+
+
+/**functions for dplayer**/
+
+//put this function to where you want the dplayer to dispaly
+function dplayer__element()
+{
+	echo "<div id=\"dplayer\"></div>";
+}
+	
+	
+//this should put at the near the need of a body,
+//the js object name is dp.
+function dplayer__setup()
+{
+	echo "<link rel=\"stylesheet\" href=\"https://cn.yimian.xyz/etc/dplayer/DPlayer.min.css\">
+<script src=\"https://cn.yimian.xyz/etc/dplayer/DPlayer.min.js\"></script>";
+	echo "<script type=\"text/javascript\">//script for set up the dplayer
+const dp = new DPlayer({
+    container: document.getElementById('dplayer'),
+    autoplay: false,
+    theme: '#FADFA3',
+    loop: false,
+    lang: 'zh-cn',
+    hotkey: true,
+    preload: 'auto',
+    logo: 'https://cn.yimian.xyz/etc/img/logo/logo_white.png',
+    volume: 0.7,
+    mutex: true,
+    video: {
+        url: 'https://obs-410c.obs.myhwclouds.com/video/404.mp4'
+    },
+    danmaku: {
+        id: 'null',
+        api: 'https://dans.yimian.ac.cn/',
+        bottom: '10%'
+    },
+    contextmenu: [{
+        text: 'Yimian',
+        link: 'https://www.yimian.xyz'
+    }]
+});
+</script>";
+}
+
+
+//this should put behind the setup function
+function dplayer__add($id="null",$url="https://obs-410c.obs.myhwclouds.com/video/404.mp4")
+{
+	echo "<script>//script for adding a new video to aplayer
+dp.switchVideo({
+    url: '$url'
+},
+{
+    id: '$id',
+    api: 'https://dans.yimian.ac.cn/',
+    bottom: '10%'
+});
+</script>";
+}
