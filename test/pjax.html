@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf8">
+    <title>pjax测试</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+ 
+    <style type="text/css">
+        .main{border:1px solid red;width: 1000px;height: 500px;margin: 0px auto}
+        .click{margin: 0px auto;text-align: middle;width: 1000px;margin-top: 20px;}
+    </style>
+</head>
+<body>
+<div class="main" style="text-align: center">1111</div>
+<div class="click">
+    <button class="red">红色模板</button>
+    <button class="green">绿色模板</button>
+</div>
+ 
+<div class="main" style="text-align: center">222</div>
+<div class="click">
+    <button class="red">红色模板</button>
+    <button class="green">绿色模板</button>
+</div>
+ 
+<div class="main" style="text-align: center">333</div>
+<div class="click">
+    <button class="red">红色模板</button>
+    <button class="green">绿色模板</button>
+</div>
+<div id="hhh"></div>
+<script type="text/javascript">
+    $('button').bind('click',function(){
+        var color=$(this).attr('class');
+        $.pjax({
+            url: 'change.php?color='+color,
+            container: '#hhh'
+        })
+    });
+</script>
+</body>
+</html>

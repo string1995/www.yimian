@@ -39,7 +39,9 @@ function yimian__header($title="Yimian",$keywords="yimian",$description="Yimian 
 //jquery install
 function js__jquery()
 {
-	echo "<script src=\"https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js\"></script>";
+	echo "<!-- Include js Jquery and Pjax -->
+<script type=\"text/javascript\" src=\"https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js\"></script>
+<script type=\"text/javascript\" src=\"https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.js\"></script>";
 	$GLOBALS['jquery']=1;
 }
 
@@ -58,10 +60,18 @@ function yimian__headerEnd()
 function yimian__footer($wordColor="#C7C7C7",$backgroundColor="#2B2B2B",$urlColor="#87CEEB")
 {
 	echo "	<style>/*footer theme*/footer{padding:1.5rem 1rem;color:".$wordColor.";font-size:1.2rem;line-height:1.4;text-align:center;background:".$backgroundColor.";border-top:1px solid #C7C7C7}a.footera:link{color: ".$urlColor." ; text-decoration:none;}a.footera:visited {color:#79CDCD}</style>
-	<footer class=\"footer\">Copyright © 2018.<a class=\"footera\" href=\"https://cn.yimian.xyz/cv\">Yimian LIU</a> All rights reserved.</footer>";
+	<script>function openwin(){window.open(\"https://cn.yimian.xyz/cv\");}</script>
+	<footer class=\"footer\">Copyright © 2018.<a class=\"footera\" target=\"_blank\" onclick=\"openwin()\" href=\"#\">Yimian LIU</a> All rights reserved.</footer>";
 	echo "</body>
 </html>";
 }
+
+
+
+
+
+
+
 
 
 
@@ -136,8 +146,7 @@ function aplayer__add($name="",$artist="unknown",$url="",$coverurl="",$lrcurl=""
 //play a netease playlist
 function aplayer__netease($playlistid="2012006204",$loadStart=0,$numLimit=10,$theme="#ebd0c2")
 {
-	if(!$GLOBALS['jquery'])echo "<script src=\"https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js\"></script>";
-	$GLOBALS['jquery']=1;
+	if(!$GLOBALS['jquery']) js__jquery();
 	echo "<script> $.ajax({
         type: \"GET\",
         url: 'https://api.bzqll.com/music/netease/songList',
