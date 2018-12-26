@@ -83,7 +83,7 @@ return ($row_num);
 }
 
 //fnct of getting row data from database::(data_cnnct var, table name,column name, column value)::(row info)
-function sql_data($conn,$table,$clmnName,$value)
+function sql_data($conn,$table,$clmnName="",$value)
 {
 $sql = "SELECT * FROM $table where $clmnName=$value";
 
@@ -201,7 +201,7 @@ echo "</script>";
 		function(){}
 				  );
 			
-				var cookie = {
+		var cookie = {
 		set: function(name, value) {
 			var Days = 30;
 			var exp = new Date();

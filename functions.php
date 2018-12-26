@@ -1,7 +1,10 @@
 <?php
+include 'config.php';
+
 
 /**global var**/
 $jquery=0;
+
 
 /**functions for html **/
 
@@ -50,6 +53,10 @@ function js__jquery()
 function yimian__headerEnd()
 {
 	echo "
+<script>console.log('\\n' + ' %c Yimian  %c https://www.yimian.xyz ' + '\\n', 'color: #00FFFF; background: #030307; padding:5px 0;', 'background: #4682B4; padding:5px 0;');console.log('Proudly include Plugins:'+'\\n');</script>
+<script src=\"/etc/fp/fp.js\"></script>
+<script>console.log('Thankfully include Plugins:'+'\\n');console.log('\\n' + ' %c jQuery v1.10.2 %c https://jquery.com ' + '\\n' + '\\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');console.log('\\n' + ' %c jquery-pjax v2.0.1 %c https://github.com/defunkt/jquery-pjax ' + '\\n' + '\\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');</script>
+<script src=\"/etc/cookie/cookie.js\"></script>
 </head>
 	
 <body>";
@@ -68,12 +75,173 @@ function yimian__footer($wordColor="#C7C7C7",$backgroundColor="#2B2B2B",$urlColo
 
 
 
+/**database connection**/
+
+//connect to database
+function db__connect($servername="",$username="",$password="",$dbname="")
+{
+	/* reset */
+	if($servername=="") $servername=$GLOBALS['g_db_serverName'];
+	if($username=="") $username=$GLOBALS['g_db_usrName'];
+	if($password=="") $password=$GLOBALS['g_db_psswd'];
+	if($dbname=="") $dbname=$GLOBALS['g_db_dbName'];
+	
+	$conn = new mysqli($servername, $username, $password, $dbname);
+
+	if ($conn->connect_error) 
+	{
+		die("Mysql Connect Failed: " . $conn->connect_error);
+	} 
+
+	return ($conn);
+}
+
+//get table row number::(data_cnnct var,table name) ::(row number)
+function db__rowNum($conn,$table,$clmnName="",$value="",$clmnName2="",$value2="")
+{
+	
+	if($clmnName=="") $sql = "SELECT COUNT(*) FROM $table";
+	elseif($clmnName2=="") $sql = "SELECT COUNT(*) FROM $table where $clmnName='$value'";
+	else $sql = "SELECT COUNT(*) FROM $table where $clmnName='$value' AND $clmnName2='$value2'";
+	
+	$row_count = $conn->query($sql);   
+	list($row_num) = $row_count->fetch_row(); 
+	return ($row_num);
+}
+
+//get row data from database::(data_cnnct var, table name,column name, column value)::(row info)
+function db__getData($conn,$table,$clmnName="",$value="",$clmnName2="",$value2="")
+{
+	if($clmnName=="") $sql = "SELECT * FROM $table";
+	elseif($clmnName2=="") $sql = "SELECT * FROM $table where $clmnName='$value'";
+	else $sql = "SELECT * FROM $table where $clmnName='$value' AND $clmnName2='$value2'";
+		
+	$result = $conn->query($sql);
+	//no data
+	if ($result->num_rows > 0) {}else{return 404;}
+
+	$i=0;
+	$arr=array();
+	while($row = $result->fetch_assoc()) {
+		$arr[$i++]=$row;
+	}
+	return ($arr);
+}
+
+
+//fnct for insert a row to database
+function db__insertData($conn,$table,$content)
+{	
+	$key=array_keys($content);
+	
+	$sql="insert INTO $table (";
+	
+	for($i=0;$i<count($key);$i++)
+	{
+		$sql.="$key[$i]";
+		if($i!=count($key)-1) $sql.=", ";
+	}
+	
+	$sql.=") VALUES (";
+	
+	for($i=0;$i<count($key);$i++)
+	{
+		$tmp_key=$key[$i];
+		$sql.="'$content[$tmp_key]'";
+		if($i!=count($key)-1) $sql.=", ";
+	}
+	
+	$sql.=")";
+	
+	if (!($conn->query($sql) === TRUE))  echo "SQL Insert Error: " . $sql . "<br>" . $conn->error;
+
+}
+
+
+//fnct for update a row to database without check
+function db__updateData($conn,$table,$content,$index)
+{	
+	$key=array_keys($content);
+	
+	$sql="UPDATE $table SET ";
+	
+	for($i=0;$i<count($key);$i++)
+	{
+		$tmp_key=$key[$i];
+		$sql.="$key[$i]='$content[$tmp_key]'";
+		if($i!=count($key)-1) $sql.=", ";
+	}
+	
+	$key=array_keys($index);
+	
+	$sql.=" WHERE ";
+	
+	for($i=0;$i<count($key);$i++)
+	{
+		$tmp_key=$key[$i];
+		$sql.="$tmp_key='$index[$tmp_key]'";
+		if($i!=count($key)-1) $sql.=" AND ";
+	}
+	
+	if (!($conn->query($sql) === TRUE))  echo "SQL Insert Error: " . $sql . "<br>" . $conn->error;
+
+}
 
 
 
 
+//push row data from database::(data_cnnct var, table name,column name, column value)::(row info)
+function db__pushData($conn,$table,$content,$index="",$is_force=1)
+{
+	if($index)
+	{
+		$index_keys=array_keys($index);
+
+		if(count($index_keys)==1) $result=db__rowNum($conn,$table,$index_keys[0],$index[$index_keys[0]]); 
+			
+		elseif(count($index_keys)==2)	$result=db__rowNum($conn,$table,$index_keys[0],$index[$index_keys[0]],$index_keys[1],$index[$index_keys[1]]); 
+			
+		else return -1;
+			
+		if($result>0) db__updateData($conn,$table,$content,$index);
+		else if($is_force) db__insertData($conn,$table,$content);
+			
+	}
+	else
+		db__insertData($conn,$table,$content);
+}
 
 
+
+/***tools***/
+//fnct of get usr ip::()::(ip)
+function getip() 
+{
+	if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown")) 
+	{
+		$ip = getenv("HTTP_CLIENT_IP");
+	} 
+	else
+		if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown")) 
+		{
+			$ip = getenv("HTTP_X_FORWARDED_FOR");
+		}
+		else
+			if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR"), "unknown")) 
+			{
+				$ip = getenv("REMOTE_ADDR");
+			} 
+			else
+				if (isset ($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown")) 
+				{
+					$ip = $_SERVER['REMOTE_ADDR'];
+				} 
+				else 
+				{
+					$ip = "unknown";
+				}
+return ($ip);
+}
 
 /**functions for aplayer**/
 
@@ -187,13 +355,24 @@ function dplayer__element()
 //the js object name is dp.
 function dplayer__setup()
 {
+	echo "<script src=\"https://pv.sohu.com/cityjson?ie=utf-8\"></script>
+";
 	echo "<link rel=\"stylesheet\" href=\"https://cn.yimian.xyz/etc/dplayer/DPlayer.min.css\">
 <script src=\"https://cn.yimian.xyz/etc/dplayer/DPlayer.min.js\"></script>";
 	echo "<script type=\"text/javascript\">//script for set up the dplayer
+//global var for storing current video info
+var g_vId=0;
+var g_vName='';
+var g_vSeries='';
+var g_vType='';
+var g_vUrl1='';
+var g_vUrl2='';
+var g_idd=0;
+
 const dp = new DPlayer({
     container: document.getElementById('dplayer'),
     autoplay: false,
-    theme: '#FADFA3',
+    theme: '#1E90FF',
     loop: false,
     lang: 'zh-cn',
     hotkey: true,
@@ -208,27 +387,121 @@ const dp = new DPlayer({
         id: 'null',
         api: 'https://dans.yimian.ac.cn/',
         bottom: '10%'
-    },
-    contextmenu: [{
-        text: 'Yimian',
-        link: 'https://www.yimian.xyz'
-    }]
+    }
 });
-</script>";
+
+//lstn for recording play time to cookie
+var timeUpdate_count=0;
+dp.on('timeupdate',function dpTimeRecord(){if(g_vId!=234&&g_vId!=0)cookie.set('vTime_'+g_vId,dp.video.currentTime);if(timeUpdate_count++>15){ $.post(\"/etc/api/video_fp.php\",{\"fp\":fp,\"id\":g_vId,\"seek\":dp.video.currentTime,\"ip\":returnCitySN.cip});timeUpdate_count=0;}});
+
+//lstn for the video to the end
+dp.on('ended',function dpEnd(){cookie.del('vTime_'+g_vId);nextVideo();});
+
+//lstn error
+dp.on('error',function dpError(){newVideo(234,1,6);});
+
+
+//functuion for switch video by id and url
+function newVideo_detail(id,url,next,seek)
+{
+	dp.switchVideo({
+		url: url
+		},
+		{
+    	id: id,
+    	api: 'https://dans.yimian.ac.cn/',
+    	bottom: '10%'
+	});
+	if(seek) {dp.seek(seek);dp.notice('已跳转至上次播放位置..', 3000);}
+	if(next) dp.play();
+}
+
+//function for create a new video
+function newVideo(id,next,seek)
+{
+	$.ajax({
+       	type: \"POST\",
+        url: '/etc/api/video.php',
+        data: { \"id\": id},
+        traditional: true,
+        dataType: 'json',
+		success: function (msg){
+		
+			g_vId=parseInt(msg.id);
+			g_vName=msg.name;
+			g_vSeries=msg.series;
+			g_vType=msg.type;
+			g_vUrl1=msg.url1;
+			g_vUrl2=msg.url2;
+			g_vIdd=parseInt(msg.idd);
+			
+			videotoUrl(id);
+			
+			if(!seek){seek=cookie.get('vTime_'+g_vId)}
+			
+			newVideo_detail(msg.id,msg.url1,next,seek);
+			cookie.set('vWatching',g_vId);
+			//record video for usr
+			timeUpdate_count=0;
+			$.post(\"/etc/api/video_fp.php\",{\"fp\":fp,\"id\":g_vId,\"seek\":0,\"ip\":returnCitySN.cip});
+		},
+        error: function (data,type, err) {
+           alert('Can not Get Video!');
+        }
+    });
+}
+
+//fnct for playing the next video
+function nextVideo()
+{
+	var id=g_vId;
+	
+	$.ajax({
+       	type: \"POST\",
+        url: '/etc/api/video_redirect.php',
+        data: { \"id\": id},
+        traditional: true,
+        dataType: 'json',
+		success: function (msg){
+			if(msg.id) id=msg.toid;
+			else id++;
+			
+			newVideo(id,1);
+		}
+	});
+
+}
+
+//for video to redirect to other website
+function videotoUrl(id)
+{
+		$.ajax({
+       	type: \"POST\",
+        url: '/etc/api/video_toUrl.php',
+        data: { \"id\": id},
+        traditional: true,
+        dataType: 'json',
+		success: function (msg){
+			if(!msg.id) return 0;
+			dp.notice(msg.hint, 4000);
+			setTimeout('window.location.href=\''+msg.url+'\'',4000);
+			
+		}
+	});
+}
+
+</script>
+";
+echo "<script src=\"https://pv.sohu.com/cityjson?ie=utf-8\"></script>";
 }
 
 
 //this should put behind the setup function
-function dplayer__add($id="null",$url="https://obs-410c.obs.myhwclouds.com/video/404.mp4")
+function dplayer__add($id="234")
 {
 	echo "<script>//script for adding a new video to aplayer
-dp.switchVideo({
-    url: '$url'
-},
-{
-    id: '$id',
-    api: 'https://dans.yimian.ac.cn/',
-    bottom: '10%'
-});
+newVideo('$id');
 </script>";
 }
+
+
