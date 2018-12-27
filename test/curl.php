@@ -2,18 +2,19 @@
 
 $AccessKey = "caa81f2271eeeb10";
 $SecretKey = "91e74d006107bee0ea9ba99f5e657853";
-	
+	include '../functions.php';
 
- echo api__dogecloud("pch5","7119902f856c85a0","49.64.195.241",$AccessKey,$SecretKey);
+ echo api__dogecloud("pch5","667ff10c1dcbcb6f","49.64.195.241",$AccessKey,$SecretKey);
 
 
 
 //fnct for dogecloud API
+
 function api__dogecloud($platform,$vcode,$ip,$AccessKey,$SecretKey){
 	
 	$url="https://api.dogecloud.com/video/streams.json?platform=$platform&vcode=$vcode&ip=$ip";
 	
-	$str="/video/streams.json?platform=pch5&vcode=7119902f856c85a0&ip=49.64.195.241"."\n";
+	$str="/video/streams.json?platform=$platform&vcode=$vcode&ip=$ip"."\n";
 
 	$str  = hash_hmac("sha1", $str, $SecretKey);
 	

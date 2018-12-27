@@ -11,6 +11,7 @@ $jquery=0;
 //print a html header
 function yimian__header($title="Yimian",$keywords="yimian",$description="Yimian Website")
 {
+
 	echo "<!--
 
    ___     ___
@@ -27,9 +28,10 @@ function yimian__header($title="Yimian",$keywords="yimian",$description="Yimian 
 
 -->
 ";
+	echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+";
 
-	echo "<!doctype html>
-<head>
+	echo "<head>
 	<meta charset=\"utf-8\">
     <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">
 	<title>".$title."</title>
@@ -258,23 +260,7 @@ function aplayer__setup()
 {
 	echo "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css\">
 <script src=\"https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js\"></script>";
-	echo "<script>//script for setup the aplayer
-	const ap = new APlayer({
-    container: document.getElementById('aplayer'),
-    mini: false,
-    autoplay: false,
-    theme: '#FADFA3',
-    loop: 'all',
-    order: 'random',
-    preload: 'auto',
-    volume: 0.7,
-    mutex: true,
-    listFolded: false,
-    listMaxHeight: 90,
-    lrcType: 3,
-    audio: []
-});	
-	</script>";
+	echo "<script src=\"/etc/aplayer/setup.js\"></script>";
 }
 
 
@@ -284,16 +270,7 @@ function aplayer__setup_mini()
 {
 	echo "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css\">
 <script src=\"https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js\"></script>";
-	echo "<script>//script for setup the aplayer
-	const ap = new APlayer({
-    container: document.getElementById('aplayer'),
-	fixed: true,
-	loop: 'all',
-    order: 'random',
-	volume: 0.7,
-    audio: []
-});	
-	</script>";
+	echo "<script src=\"/etc/aplayer/setup_mini.js\"></script>";
 }
 
 //the should put behind the setup function
@@ -359,142 +336,29 @@ function dplayer__setup()
 ";
 	echo "<link rel=\"stylesheet\" href=\"https://cn.yimian.xyz/etc/dplayer/DPlayer.min.css\">
 <script src=\"https://cn.yimian.xyz/etc/dplayer/DPlayer.min.js\"></script>";
-	echo "<script type=\"text/javascript\">//script for set up the dplayer
-//global var for storing current video info
-var g_vId=0;
-var g_vName='';
-var g_vSeries='';
-var g_vType='';
-var g_vUrl1='';
-var g_vUrl2='';
-var g_idd=0;
-
-const dp = new DPlayer({
-    container: document.getElementById('dplayer'),
-    autoplay: false,
-    theme: '#1E90FF',
-    loop: false,
-    lang: 'zh-cn',
-    hotkey: true,
-    preload: 'auto',
-    logo: 'https://cn.yimian.xyz/etc/img/logo/logo_white.png',
-    volume: 0.7,
-    mutex: true,
-    video: {
-        url: 'https://obs-410c.obs.myhwclouds.com/video/404.mp4'
-    },
-    danmaku: {
-        id: 'null',
-        api: 'https://dans.yimian.ac.cn/',
-        bottom: '10%'
-    }
-});
-
-//lstn for recording play time to cookie
-var timeUpdate_count=0;
-dp.on('timeupdate',function dpTimeRecord(){if(g_vId!=234&&g_vId!=0)cookie.set('vTime_'+g_vId,dp.video.currentTime);if(timeUpdate_count++>15){ $.post(\"/etc/api/video_fp.php\",{\"fp\":fp,\"id\":g_vId,\"seek\":dp.video.currentTime,\"ip\":returnCitySN.cip});timeUpdate_count=0;}});
-
-//lstn for the video to the end
-dp.on('ended',function dpEnd(){cookie.del('vTime_'+g_vId);nextVideo();});
-
-//lstn error
-dp.on('error',function dpError(){newVideo(234,1,6);});
-
-
-//functuion for switch video by id and url
-function newVideo_detail(id,url,next,seek)
-{
-	dp.switchVideo({
-		url: url
-		},
-		{
-    	id: id,
-    	api: 'https://dans.yimian.ac.cn/',
-    	bottom: '10%'
-	});
-	if(seek) {dp.seek(seek);dp.notice('已跳转至上次播放位置..', 3000);}
-	if(next) dp.play();
-}
-
-//function for create a new video
-function newVideo(id,next,seek)
-{
-	$.ajax({
-       	type: \"POST\",
-        url: '/etc/api/video.php',
-        data: { \"id\": id},
-        traditional: true,
-        dataType: 'json',
-		success: function (msg){
-		
-			g_vId=parseInt(msg.id);
-			g_vName=msg.name;
-			g_vSeries=msg.series;
-			g_vType=msg.type;
-			g_vUrl1=msg.url1;
-			g_vUrl2=msg.url2;
-			g_vIdd=parseInt(msg.idd);
-			
-			videotoUrl(id);
-			
-			if(!seek){seek=cookie.get('vTime_'+g_vId)}
-			
-			newVideo_detail(msg.id,msg.url1,next,seek);
-			cookie.set('vWatching',g_vId);
-			//record video for usr
-			timeUpdate_count=0;
-			$.post(\"/etc/api/video_fp.php\",{\"fp\":fp,\"id\":g_vId,\"seek\":0,\"ip\":returnCitySN.cip});
-		},
-        error: function (data,type, err) {
-           alert('Can not Get Video!');
-        }
-    });
-}
-
-//fnct for playing the next video
-function nextVideo()
-{
-	var id=g_vId;
-	
-	$.ajax({
-       	type: \"POST\",
-        url: '/etc/api/video_redirect.php',
-        data: { \"id\": id},
-        traditional: true,
-        dataType: 'json',
-		success: function (msg){
-			if(msg.id) id=msg.toid;
-			else id++;
-			
-			newVideo(id,1);
-		}
-	});
-
-}
-
-//for video to redirect to other website
-function videotoUrl(id)
-{
-		$.ajax({
-       	type: \"POST\",
-        url: '/etc/api/video_toUrl.php',
-        data: { \"id\": id},
-        traditional: true,
-        dataType: 'json',
-		success: function (msg){
-			if(!msg.id) return 0;
-			dp.notice(msg.hint, 4000);
-			setTimeout('window.location.href=\''+msg.url+'\'',4000);
-			
-		}
-	});
-}
-
-</script>
+	echo "<script type=\"text/javascript\" src=\"/etc/dplayer/setup.js\"></script>
 ";
 echo "<script src=\"https://pv.sohu.com/cityjson?ie=utf-8\"></script>";
 }
 
+	
+//this should put at the near the need of a body,
+//the js object name is dp.
+function dplayer__setup_once($id)
+{
+	echo "<script src=\"https://pv.sohu.com/cityjson?ie=utf-8\"></script>
+<script src=\"https://cdn.bootcss.com/hls.js/0.10.1/hls.min.js\"></script>
+";
+	echo "<link rel=\"stylesheet\" href=\"https://cn.yimian.xyz/etc/dplayer/DPlayer.min.css\">
+<script src=\"https://cn.yimian.xyz/etc/dplayer/DPlayer.min.js\"></script>";
+	echo "<script type=\"text/javascript\">//script for set up the dplayer
+//global var for storing current video info
+var g_vId=$id;
+</script>
+<script src=\"/etc/dplayer/setup_once.js\"></script>
+";
+echo "<script src=\"https://pv.sohu.com/cityjson?ie=utf-8\"></script>";
+}
 
 //this should put behind the setup function
 function dplayer__add($id="234")
@@ -515,7 +379,7 @@ function api__dogecloud($platform,$vcode,$ip,$AccessKey,$SecretKey){
 	
 	$url="https://api.dogecloud.com/video/streams.json?platform=$platform&vcode=$vcode&ip=$ip";
 	
-	$str="/video/streams.json?platform=pch5&vcode=7119902f856c85a0&ip=49.64.195.241"."\n";
+	$str="/video/streams.json?platform=$platform&vcode=$vcode&ip=$ip"."\n";
 
 	$str  = hash_hmac("sha1", $str, $SecretKey);
 	
@@ -536,8 +400,6 @@ function api__dogecloud($platform,$vcode,$ip,$AccessKey,$SecretKey){
 	
     return $output;
 }
-
-
 
 
 
