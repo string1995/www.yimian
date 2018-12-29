@@ -7,7 +7,7 @@
 <script>$(document).pjax('a', '#content');//alert(fp);</script>
 <?php dplayer__element()?>
 <?php dplayer__setup()?>
-<?php dplayer__add(324)?>
+<?php dplayer__add($_GET['id'])?>
 <button onClick="nextVideo()">hhh</button>
 
 <?php aplayer__element()?>

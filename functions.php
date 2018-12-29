@@ -46,7 +46,7 @@ function yimian__header($title="Yimian",$keywords="yimian",$description="Yimian 
 function js__jquery()
 {
 	echo "<!-- Include js Jquery and Pjax -->
-<script type=\"text/javascript\" src=\"https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js\"></script>
+<script type=\"text/javascript\" src=\"https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js\"></script>
 <script type=\"text/javascript\" src=\"https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.js\"></script>";
 	$GLOBALS['jquery']=1;
 }

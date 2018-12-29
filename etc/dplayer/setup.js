@@ -7,6 +7,7 @@ var g_vType='';
 var g_vUrl1='';
 var g_vUrl2='';
 var g_idd=0;
+var g_aid=0;
 
 const dp = new DPlayer({
     container: document.getElementById('dplayer'),
@@ -41,8 +42,9 @@ dp.on('error',function dpError(){newVideo(234,1,6);});
 
 
 //functuion for switch video by id and url
-function newVideo_detail(id,url,next,seek)
+function newVideo_detail(id,url,next,seek,aid)
 {
+	if(!aid)
 	dp.switchVideo({
 		url: url
 		},
@@ -50,6 +52,16 @@ function newVideo_detail(id,url,next,seek)
     	id: id,
     	api: 'https://dans.yimian.ac.cn/',
     	bottom: '10%'
+	});
+	else
+	dp.switchVideo({
+		url: url
+		},
+		{
+    	id: id,
+    	api: 'https://dans.yimian.ac.cn/',
+    	bottom: '10%',
+		addition: ['https://api.prprpr.me/dplayer/v3/bilibili?aid='+aid]
 	});
 	if(seek) {dp.seek(seek);dp.notice('已跳转至上次播放位置..', 3000);}
 	if(next) dp.play();
@@ -73,12 +85,13 @@ function newVideo(id,next,seek)
 			g_vUrl1=msg.url1;
 			g_vUrl2=msg.url2;
 			g_vIdd=parseInt(msg.idd);
+			g_aid=msg.aid;
 			
 			videotoUrl(id);
 			
 			if(!seek){seek=cookie.get('vTime_'+g_vId)}
 			
-			newVideo_detail(msg.id,msg.url1,next,seek);
+			newVideo_detail(msg.id,msg.url1,next,seek,msg.aid);
 			cookie.set('vWatching',g_vId);
 			//record video for usr
 			timeUpdate_count=0;

@@ -33,10 +33,9 @@ if($login==1){echo '<script>window.location.href="./intro.php";</script>';}
 
 } else { //pc
 
-};
+};	
 		
-		
-		var $_GET = (function(){
+	var $_GET = (function(){
     var url = window.document.location.href.toString();
     var u = url.split("?");
     if(typeof(u[1]) == "string"){
