@@ -45,10 +45,13 @@ function yimian__header($title="Yimian",$keywords="yimian",$description="Yimian 
 //jquery install
 function js__jquery()
 {
+	if(!$GLOBALS['jquery'])
+	{	
 	echo "<!-- Include js Jquery and Pjax -->
 <script type=\"text/javascript\" src=\"https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js\"></script>
 <script type=\"text/javascript\" src=\"https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.js\"></script>";
 	$GLOBALS['jquery']=1;
+	}
 }
 
 
@@ -77,6 +80,7 @@ function css__easyVer()
 //mark the end of the html header
 function yimian__headerEnd()
 {
+	js__jquery();
 	echo "
 <script>console.log('\\n' + ' %c Yimian  %c https://www.yimian.xyz ' + '\\n', 'color: #00FFFF; background: #030307; padding:5px 0;', 'background: #4682B4; padding:5px 0;');</script>
 <script>console.log('Thankfully / Proudly include Plugins:'+'\\n');";
@@ -109,8 +113,17 @@ function js__cleverLogin()
 	js__easyVer();
 }
 
+
+function yimian__heartbeat()
+{
+	echo "
+<script>$.post(\"/heartbeat.php\",{\"ip\":ip,\"fp\":fp})</script>";
+}
+
+
 function yimian__simpleFooter()
 {
+	yimian__heartbeat();
 		echo "
 </body>
 </html>";
@@ -122,7 +135,7 @@ function yimian__footer($wordColor="#C7C7C7",$backgroundColor="#2B2B2B",$urlColo
 	echo "	<style>/*footer theme*/footer{padding:1.5rem 1rem;color:".$wordColor.";font-size:1.2rem;line-height:1.4;text-align:center;background:".$backgroundColor.";border-top:1px solid #C7C7C7}a.footera:link{color: ".$urlColor." ; text-decoration:none;}a.footera:visited {color:#79CDCD}</style>
 	<script>function openwin(){window.open(\"https://cn.yimian.xyz/cv\");}</script>
 	<footer class=\"footer\">Copyright © 2018.<a class=\"footera\" onclick=\"openwin()\" href=\"#\">Yimian LIU</a> All rights reserved.</footer>";
-
+	yimian__heartbeat();
 	echo "</body>
 </html>";
 }

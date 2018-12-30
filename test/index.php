@@ -8,7 +8,9 @@
 <?php dplayer__element()?>
 <?php dplayer__setup()?>
 <?php dplayer__add($_GET['id'])?>
-<button onClick="nextVideo()">hhh</button>
+<button onClick="kk()">hhh</button>
+
+<script>function kk(){nextVideo();window.history.replaceState(null, null, "https://cn.yimian.xyz/hhh");}</script>
 
 <?php aplayer__element()?>
 <?php aplayer__setup_mini()?>
