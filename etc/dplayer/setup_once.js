@@ -66,7 +66,8 @@ $.ajax({
 				danmaku: {
 					id: g_vId,
 					api: 'https://dans.yimian.ac.cn/',
-        			bottom: '10%'
+        			bottom: '10%',
+					user: fp
 					}
 				});
 
@@ -106,7 +107,8 @@ $.ajax({
 				danmaku: {
 					id: g_vId,
 					api: 'https://dans.yimian.ac.cn/',
-        			bottom: '10%'
+        			bottom: '10%',
+					user: fp
 					}
 				});
 

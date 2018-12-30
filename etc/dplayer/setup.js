@@ -26,7 +26,8 @@ const dp = new DPlayer({
     danmaku: {
         id: 'null',
         api: 'https://dans.yimian.ac.cn/',
-        bottom: '10%'
+        bottom: '10%',
+		user: fp
     }
 });
 
@@ -51,7 +52,8 @@ function newVideo_detail(id,url,next,seek,aid)
 		{
     	id: id,
     	api: 'https://dans.yimian.ac.cn/',
-    	bottom: '10%'
+    	bottom: '10%',
+		user: fp
 	});
 	else
 	dp.switchVideo({
@@ -61,7 +63,8 @@ function newVideo_detail(id,url,next,seek,aid)
     	id: id,
     	api: 'https://dans.yimian.ac.cn/',
     	bottom: '10%',
-		addition: ['https://api.prprpr.me/dplayer/v3/bilibili?aid='+aid]
+		addition: ['https://api.prprpr.me/dplayer/v3/bilibili?aid='+aid],
+		user: fp
 	});
 	if(seek) {dp.seek(seek);dp.notice('已跳转至上次播放位置..', 3000);}
 	if(next) dp.play();
