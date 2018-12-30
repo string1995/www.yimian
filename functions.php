@@ -52,21 +52,69 @@ function js__jquery()
 }
 
 
+function js__device()
+{
+	echo "
+<script src=\"https://cdn.bootcss.com/device.js/0.2.7/device.min.js\"></script>";
+}
+
+
+function css__cleverLogin()
+{
+	echo "
+<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.yimian.ac.cn/clever-login/clever-login_base.css\" />
+<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.yimian.ac.cn/clever-login/clever-login_icon.css\" />
+<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.yimian.ac.cn/clever-login/clever-login_normal.css\" />
+<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.yimian.ac.cn/clever-login/clever-login_reg.css\" />";
+}
+
+function css__easyVer()
+{
+	echo "
+<link type=\"text/css\" rel=\"stylesheet\" href=\"https://cdn.yimian.ac.cn/easyVer/easyVer.min.css\">";
+}
+
 //mark the end of the html header
 function yimian__headerEnd()
 {
 	echo "
-<script>console.log('\\n' + ' %c Yimian  %c https://www.yimian.xyz ' + '\\n', 'color: #00FFFF; background: #030307; padding:5px 0;', 'background: #4682B4; padding:5px 0;');console.log('Proudly include Plugins:'+'\\n');</script>
-<script src=\"/etc/fp/fp.js\"></script>
-<script>console.log('Thankfully include Plugins:'+'\\n');console.log('\\n' + ' %c jQuery v1.10.2 %c https://jquery.com ' + '\\n' + '\\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');console.log('\\n' + ' %c jquery-pjax v2.0.1 %c https://github.com/defunkt/jquery-pjax ' + '\\n' + '\\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');</script>
-<script src=\"/etc/cookie/cookie.js\"></script>
+<script>console.log('\\n' + ' %c Yimian  %c https://www.yimian.xyz ' + '\\n', 'color: #00FFFF; background: #030307; padding:5px 0;', 'background: #4682B4; padding:5px 0;');</script>
+<script>console.log('Thankfully / Proudly include Plugins:'+'\\n');";
+
+if($GLOBALS['jquery']==1)
+echo "console.log('\\n' + ' %c jQuery v3.3.1 %c https://jquery.com '+ '\\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');console.log('\\n' + ' %c jquery-pjax v2.0.1 %c https://github.com/defunkt/jquery-pjax ' + '\\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');";
+	
+echo "</script>
+<script src=\"https://cdn.yimian.ac.cn/cookie/cookie.js\"></script>
 <script src=\"https://pv.sohu.com/cityjson?ie=utf-8\"></script>
 <script type=\"text/javascript\">ip=returnCitySN.cip;</script>
+<script src=\"https://cdn.yimian.ac.cn/fp/fp.js\"></script>
 </head>
 	
 <body>";
 }
 
+function js__easyVer()
+{
+	echo "
+<script type=\"text/javascript\" src=\"https://cdn.yimian.ac.cn/easyVer/easyVer.min.js\"></script>";
+}
+
+function js__cleverLogin()
+{
+	echo "
+<script type=\"text/javascript\" src=\"https://cdn.yimian.ac.cn/clever-login/polygonizr.min.js\"></script>
+<script type=\"text/javascript\">$('#site-landing').polygonizr();</script>
+<script type=\"text/javascript\" src=\"https://cdn.yimian.ac.cn/clever-login/clever-login.min.js\"></script>";
+	js__easyVer();
+}
+
+function yimian__simpleFooter()
+{
+		echo "
+</body>
+</html>";
+}
 
 //print a html footer
 function yimian__footer($wordColor="#C7C7C7",$backgroundColor="#2B2B2B",$urlColor="#87CEEB")
