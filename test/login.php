@@ -6,13 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>用户登录</title>
+        <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.yimian.ac.cn/greatLoading/greadLoading.min.css">
+    <style type="text/css">
+        #loader-wrapper .loader-section {background: #067ad0;}
+    </style>
+
+<div id="loader-wrapper" >
+    
+<div id="loader"></div>
+    
+<div class="loader-section section-left"></div>
+    
+<div class="loader-section section-right"></div>
+    
+<div class="load_title">Yimian Login<br><span>Loading..</span></div>
+</div>
+
+<script type="text/javascript">
+    $(window).on("load",function(){
+        $('body').addClass('loaded');
+        $('#loader-wrapper .load_title').remove();
+    }); 
+
+</script>
+
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 
     <meta name="Keywords" content="网站关键词">
     <meta name="Description" content="网站介绍">
     <link rel="stylesheet" type="text/css" href="https://cdn.yimian.ac.cn/clever-login/clever-login.css" />
 	<link type="text/css" rel="stylesheet" href="https://cdn.yimian.ac.cn/easyVer/easyVer.min.css">
+    <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script type="text/javascript">ip=returnCitySN.cip</script>
     <script src="https://cdn.bootcss.com/device.js/0.2.7/device.min.js"></script>
 </head>
 <body>
@@ -20,7 +47,7 @@
 <div id="site-landing"></div>
 <div class="wrap">
     <div class="wpn">
-        <div class="form-data pos">
+        <div class="form-data pos login">
             <a href="https://www.yimian.xyz"><img src="https://cn.yimian.xyz/etc/img/logo/logo.png" class="head-logo"></a>
 			
                 <form name="form">
@@ -47,6 +74,19 @@
 			    </form>
 			      <button class="lang-btn log-btn" >登录/注册</button>
 
+            <p class="right">Powered by <a href="https://hhcandy.me">hhCandy</a>© 2018</p>
+        </div>
+        <div class="form-data find_password">
+            <h4>您的称呼</h4>
+            <form  name="form">
+            <p class="p-input pos">
+                <label for="pc_tel">我该怎样呼唤你呢 ヽ(〃∀〃)ﾉ</label>
+                <input type="text" id="pc_tel" name="name">
+                <span class="tel-warn pc_tel-err hide"><em>最多12个字哦ヽ(•̀ω•́ )ゝ</em><i class="icon-warn"></i></span>
+            </p>
+
+            </form>
+                <button class="lang-btn next">让我们开始吧 ๑乛◡乛๑</button>
             <p class="right">Powered by <a href="https://hhcandy.me">hhCandy</a>© 2018</p>
         </div>
     </div>

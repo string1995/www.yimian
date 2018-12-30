@@ -1395,6 +1395,8 @@ input[type=number]::-webkit-outer-spin-button {
     margin-left: -230px;
     position: fixed;
     top: 15%;
+    z-index: -100;
+    opacity: 0;
 }
 .find_password h4{
     font-size: 18px;

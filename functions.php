@@ -60,6 +60,8 @@ function yimian__headerEnd()
 <script src=\"/etc/fp/fp.js\"></script>
 <script>console.log('Thankfully include Plugins:'+'\\n');console.log('\\n' + ' %c jQuery v1.10.2 %c https://jquery.com ' + '\\n' + '\\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');console.log('\\n' + ' %c jquery-pjax v2.0.1 %c https://github.com/defunkt/jquery-pjax ' + '\\n' + '\\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');</script>
 <script src=\"/etc/cookie/cookie.js\"></script>
+<script src=\"https://pv.sohu.com/cityjson?ie=utf-8\"></script>
+<script type=\"text/javascript\">ip=returnCitySN.cip;</script>
 </head>
 	
 <body>";
@@ -72,6 +74,7 @@ function yimian__footer($wordColor="#C7C7C7",$backgroundColor="#2B2B2B",$urlColo
 	echo "	<style>/*footer theme*/footer{padding:1.5rem 1rem;color:".$wordColor.";font-size:1.2rem;line-height:1.4;text-align:center;background:".$backgroundColor.";border-top:1px solid #C7C7C7}a.footera:link{color: ".$urlColor." ; text-decoration:none;}a.footera:visited {color:#79CDCD}</style>
 	<script>function openwin(){window.open(\"https://cn.yimian.xyz/cv\");}</script>
 	<footer class=\"footer\">Copyright © 2018.<a class=\"footera\" onclick=\"openwin()\" href=\"#\">Yimian LIU</a> All rights reserved.</footer>";
+
 	echo "</body>
 </html>";
 }
