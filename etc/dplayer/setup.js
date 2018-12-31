@@ -6,7 +6,7 @@ var g_vSeries='';
 var g_vType='';
 var g_vUrl1='';
 var g_vUrl2='';
-var g_idd=0;
+var g_vIdd=0;
 var g_aid=0;
 
 const dp = new DPlayer({
@@ -88,6 +88,7 @@ function newVideo(id,next,seek)
 			g_vType=msg.type;
 			g_vUrl1=msg.url1;
 			g_vUrl2=msg.url2;
+			if(parseInt(msg.idd)!=234&&parseInt(msg.idd)>0)
 			g_vIdd=parseInt(msg.idd);
 			g_aid=msg.aid;
 			
