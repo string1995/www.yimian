@@ -29,8 +29,11 @@ if(!isset($_REQUEST['id']))
 		
 		if(!$r_usr) $res=$result;
 		else
-		$res=db__getData($conn,"fp","usr",$r_usr);
-	
+		{
+			$res=db__getData($conn,"fp","usr",$r_usr);
+			$resUser=db__getData($conn,"user","tel",$r_usr);
+			$_SESSION['s_usr']=$resUser[0]['name'];
+		}
 		$max=0;
 	
 		for($i=1;$i<count($res);$i++)
@@ -86,7 +89,6 @@ $(\"#next\").on(\"click\",function (){nextVideo();});
 	
 <p id="videoDownload"></p>
 
-	
 <p id="videoState"></p>
 	
 <p id="videoSeek"></p>
@@ -94,9 +96,12 @@ $(\"#next\").on(\"click\",function (){nextVideo();});
 <p id="dansFrom"></p>
 	
 <p id="dansLength"></p>
+	
+<p id="back"></p>
 </div>
 <script>
-$("#usrName").html("UserName: <?php if(isset($_SESSION['s_usr']))echo $_SESSION['s_usr'];else echo "没有登录？<a href='https://cn.yimian.xyz/login'>戳我注册~</a>";?>");
+$("#usrName").html("UserName: <?php if(isset($_SESSION['s_usr']))echo $_SESSION['s_usr'];else
+{echo "没有登录？<a href='https://cn.yimian.xyz/login?from=https://cn.yimian.xyz/video/video.php'>戳我注册~</a>";}?>");
 	
 function attach()
 {
@@ -110,6 +115,7 @@ function attach()
 	(dp.danmaku.dan.length>1500)||$("#dansFrom").html("DansBilibili: Off");
 	(dp.danmaku.dan.length>1500)&&$("#dansFrom").html("DansBilibili: On");
 	$("#dansLength").html("DansAmount: "+dp.danmaku.dan.length);
+	$("#back").html("<a href='./list.php?idd="+g_vIdd+"'>Click here to go Back~</a>");
 }
 	
 	</script>

@@ -122,12 +122,16 @@ function yimian__heartbeat()
 }
 
 
-function yimian__simpleFooter()
+function yimian__simpleFooter($bodyEnd=0)
 {
+	
+	if(!$bodyEnd) echo "
+</body>";
 	yimian__heartbeat();
 		echo "
-</body>
 </html>";
+	
+		
 }
 
 //print a html footer
