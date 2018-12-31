@@ -2,10 +2,9 @@
 
 
 <?php
-
-
+include '../functions.php';
 header('content-type:text/html;charset=utf-8');
-$conn=database_cnnct();
+$conn=db__connect();
 
 $class=$_GET['class'];
 
@@ -26,56 +25,6 @@ $result = $conn->query($sql);
 <?php //declear function
 
 
-//fnct of get usr ip::()::(ip)
-function getip() 
-{
-	if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown")) 
-	{
-		$ip = getenv("HTTP_CLIENT_IP");
-	} 
-	else
-		if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown")) 
-		{
-			$ip = getenv("HTTP_X_FORWARDED_FOR");
-		}
-		else
-			if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR"), "unknown")) 
-			{
-				$ip = getenv("REMOTE_ADDR");
-			} 
-			else
-				if (isset ($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown")) 
-				{
-					$ip = $_SERVER['REMOTE_ADDR'];
-				} 
-				else 
-				{
-					$ip = "unknown";
-				}
-return ($ip);
-}
-
-
-//fnct of connecting database::()::(database conn)
-function database_cnnct ()
-{
-$servername = "114.116.65.152";
-$username = "yimian";
-$password = "Lymian0904@112";
-$dbname = "yimian";
-
-// 创建连接
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-	
-
-if ($conn->connect_error) 
-{
-    die("连接失败: " . $conn->connect_error);
-} 
-
-return ($conn);
-}
 
 
 //fnct of get table row number::(data_cnnct var,table name) ::(row number)
@@ -120,17 +69,11 @@ function array_orderby()
 
 ?>
 
-<html lang="zh">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Yimian Video</title>
+<?php yimian__header("Yimian Video","video,Yimian","This is the page for listing video series.");?>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/style.css">
 
-</head>
-<body>
+<?php yimian__headerEnd()?>
 	
 	<div id="wrapper">
         <div class="overlay"></div>
@@ -208,7 +151,6 @@ if ($result->num_rows > 0) {
     </div>
     <!-- /#wrapper -->
 	
-	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
@@ -240,24 +182,5 @@ if ($result->num_rows > 0) {
 		  });  
 		});
 	</script>
-    <script>//log visit
-		
-		var url=window.location.pathname+window.location.search;
-		var domain= document.domain;
 
-		
-	    $.ajax({
-        type: "POST",
-        url: '/log.php',
-        data: { "url": url,
-			  	"domain": domain},//使用这种数组方式的，得加下一句才可以，使用传统方式
-        traditional: true,
-        dataType: 'json',
-        error: function (data,type, err) {
-           alert('Could not log your visit!');
-        }
-    });
-	</script>
-
-</body>
-</html>
+<?php yimian__simpleFooter()?>

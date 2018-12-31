@@ -9,6 +9,9 @@ $ip= $_REQUEST[ip];
 
 $conn=db__connect();
 
+if(!db__rowNum($conn,"fp","fp",$fp)) 
+db__pushData($conn,"fp",array("fp"=>$fp,"videoseek"=>$seek,"video"=>$id,"ip"=>$ip,"videotime"=>time()));
+else
 db__pushData($conn,"fp",array("fp"=>$fp,"videoseek"=>$seek,"video"=>$id,"ip"=>$ip,"videotime"=>time()),array("fp"=>$fp));
 
 

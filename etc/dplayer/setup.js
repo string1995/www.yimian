@@ -33,7 +33,8 @@ const dp = new DPlayer({
 
 //lstn for recording play time to cookie
 var timeUpdate_count=0;
-dp.on('timeupdate',function dpTimeRecord(){if(g_vId!=234&&g_vId!=0)cookie.set('vTime_'+g_vId,dp.video.currentTime);if(timeUpdate_count++>15){ $.post("/etc/api/video_fp.php",{"fp":fp,"id":g_vId,"seek":dp.video.currentTime,"ip":returnCitySN.cip});timeUpdate_count=0;window.history.replaceState(null, null, "https://cn.yimian.xyz/video/video.php?id="+g_vId);}});
+dp.on('timeupdate',function dpTimeRecord(){if(g_vId!=234&&g_vId!=0)cookie.set('vTime_'+g_vId,dp.video.currentTime);if(timeUpdate_count++>15){ $.post("/etc/api/video_fp.php",{"fp":fp,"id":g_vId,"seek":dp.video.currentTime,"ip":returnCitySN.cip});timeUpdate_count=0;window.history.replaceState(null, null, "https://cn.yimian.xyz/video/video.php?id="+g_vId);}
+	if(typeof attach==="function") attach();});
 
 //lstn for the video to the end
 dp.on('ended',function dpEnd(){cookie.del('vTime_'+g_vId);nextVideo();});
