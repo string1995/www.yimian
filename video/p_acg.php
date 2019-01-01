@@ -1,11 +1,11 @@
+<!DOCTYPE html>
+<?php
+//if(!isset($_GET['_pjax'])) header("Location: https://cn.yimian.xyz/video/acg.php?class=".$_GET['class']);
+?>
 
 <?php
 include '../functions.php';
-
 header('content-type:text/html;charset=utf-8');
-
-video__bodyUp();
-
 $conn=db__connect();
 
 $class=$_GET['class'];
@@ -100,6 +100,3 @@ if ($result->num_rows > 0) {
 				</br>
                     </div>
                 </div>
-<?php
-video__bodyDown();
-?>

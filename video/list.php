@@ -9,7 +9,7 @@ $conn=db__connect();
 
 $idd=$_GET['idd'];
 
-
+video__bodyUp();
 //get row info form table blog with id
 $series= sql_data($conn,'videoIndx','idd',$idd);
 
@@ -74,53 +74,6 @@ function array_orderby()
 
 
 
-<?php yimian__header("Yimian Video","video,Yimian","This is the page for show video detail.");?>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/style.css">
-
-<?php yimian__headerEnd()?>
-	
-	<div id="wrapper">
-        <div class="overlay"></div>
-    
-        <!-- Sidebar -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-            <ul class="nav sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="./">
-                       Yimian Video
-                    </a>
-                </li>
-                <li>                    <a href="./"><i class="fa fa-fw fa-home"></i>Video Home</a>
-                </li>
-                <li>
-                    <a href="./acg.php?class=1"><i class="fa fa-fw fa-folder"></i> ACG</a>
-                </li>
-                <li>
-                    <a href="./acg.php?class=2"><i class="fa fa-fw fa-file-o"></i> Movies</a>
-                </li>
-                <li>
-                    <a href="./acg.php?class=3"><i class="fa fa-fw fa-cog"></i> Documentary</a>
-                </li>
-                <li>
-                    <a href="./acg.php?class=4"><i class="fa fa-fw fa-cog"></i> TV Play</a>
-                </li>
-
-                <li>
-                    <a href="../"><i class="fa fa-fw fa-twitter"></i>Back to Yimian Page</a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-          <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
-            <span class="hamb-top"></span>
-            <span class="hamb-middle"></span>
-            <span class="hamb-bottom"></span>
-          </button>
-            <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <h1 class="page-header"><?php echo $seriesName?></h1>  
@@ -129,8 +82,8 @@ function array_orderby()
 if ($result->num_rows > 0) {
     // 输出数据
     while($row = $result->fetch_assoc()) {
-		echo '<p><a href="./video.php?id='.$row['id']
-		.'">' . $row['name'].'</a></p>';
+		echo '<p><a href="#" onclick="window.location.href=\'./video.php?id='.$row['id']
+		.'\'">' . $row['name'].'</a></p>';
 
 		
     }
@@ -142,46 +95,5 @@ if ($result->num_rows > 0) {
 
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-	
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function () {
-		  var trigger = $('.hamburger'),
-		      overlay = $('.overlay'),
-		     isClosed = false;
-
-		    trigger.click(function () {
-		      hamburger_cross();      
-		    });
-
-		    function hamburger_cross() {
-
-		      if (isClosed == true) {          
-		        overlay.hide();
-		        trigger.removeClass('is-open');
-		        trigger.addClass('is-closed');
-		        isClosed = false;
-		      } else {   
-		        overlay.show();
-		        trigger.removeClass('is-closed');
-		        trigger.addClass('is-open');
-		        isClosed = true;
-		      }
-		  }
-		  
-		  $('[data-toggle="offcanvas"]').click(function () {
-		        $('#wrapper').toggleClass('toggled');
-		  });  
-		});
-	</script>
-
-<?php yimian__simpleFooter()?>
-	
+ <?php video__bodyDown();
 	

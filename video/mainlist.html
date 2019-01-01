@@ -1,43 +1,4 @@
-	<div id="wrapper">
-        <div class="overlay"></div>
-    
-        <!-- Sidebar -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-            <ul class="nav sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="./">
-                       Yimian Video
-                    </a>
-                </li>
-                <li>                    <a href="./"><i class="fa fa-fw fa-home"></i>Video Home</a>
-                </li>
-                <li>
-                    <a href="./acg.php?class=1"><i class="fa fa-fw fa-folder"></i> ACG</a>
-                </li>
-                <li>
-                    <a href="./acg.php?class=2"><i class="fa fa-fw fa-file-o"></i> Movies</a>
-                </li>
-                <li>
-                    <a href="./acg.php?class=3"><i class="fa fa-fw fa-cog"></i> Documentary</a>
-                </li>
-                <li>
-                    <a href="./acg.php?class=4"><i class="fa fa-fw fa-cog"></i> TV Play</a>
-                </li>
-                <li>
-                    <a href="../"><i class="fa fa-fw fa-twitter"></i>Back to Yimian Page</a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /#sidebar-wrapper -->
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-          <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
-            <span class="hamb-top"></span>
-            <span class="hamb-middle"></span>
-            <span class="hamb-bottom"></span>
-          </button>
-            <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <h1 class="page-header">Yimian Video</h1>  
@@ -54,10 +15,13 @@
 						<h3 id="p1"></h3>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
-	
+<script>
+var watching=0;
+$.post("./fpcheck.php",{
+	fp: fp
+},
+function(msg){
+	if(msg.code==1){document.getElementById("p1").innerHTML='<a href="#" onclick="window.location.href=\'./video.php\'">点这里继续上次播放！</a>';}
+},"json");
+</script>

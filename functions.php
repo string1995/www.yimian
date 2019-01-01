@@ -473,4 +473,30 @@ function api__dogecloud($platform,$vcode,$ip,$AccessKey,$SecretKey){
 
 
 
+/****Yimian Video*******/
+
+function video__bodyUp()
+{
+	if(!isset($_REQUEST['_pjax'])) 
+	{
+		yimian__header("Yimian Video","video,Yimian","This is the page for showing video class.");
+
+		echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cn.yimian.xyz/video/css/bootstrap.css\">
+<link rel=\"stylesheet\" href=\"https://cn.yimian.xyz/video/css/style.css\">";
+
+		yimian__headerEnd();
+
+		echo file_get_contents("https://cn.yimian.xyz/video/body_up.html");
+	}
+}
+
+
+function video__bodyDown()
+{
+	if(!isset($_REQUEST['_pjax'])) 
+	{
+		echo file_get_contents("https://cn.yimian.xyz/video/body_down.html");
+		yimian__simpleFooter();
+	}
+}
 
