@@ -3,6 +3,7 @@ include './functions.php';
 
 $fp=$_REQUEST['fp'];
 $ip=$_REQUEST['ip'];
+$city=$_REQUEST['city'];
 $from=$_SERVER['HTTP_REFERER'];
 $domain=$_SERVER['HTTP_HOST'];
 
@@ -33,7 +34,7 @@ if(!isset($_SESSION['s_usrTel']))
 		db__pushData($conn,"fp",array("fp"=>$fp,"ip"=>$ip));
 }
 
-db__pushData($conn,"log",array("fp"=>$fp,"ip"=>$ip,"domain"=>$domain,"url"=>$from,"time"=>time()));
+db__pushData($conn,"log",array("city"=>$city,"fp"=>$fp,"ip"=>$ip,"domain"=>$domain,"url"=>$from,"time"=>time()));
 
 //echo json_encode(array("fp"=>$fp,"ip"=>$ip,"domain"=>$domain,"url"=>$from,"time"=>time()));
 echo json_encode(array("usr"=>$_SESSION['s_usr'],"tel"=>$_SESSION['s_tel'],"fp"=>$_SESSION['s_fp'],"ip"=>$_SESSION['s_ip']));

@@ -23,7 +23,7 @@ $result = $conn->query($sql);
 ///禁止非法访问
 if ($result->num_rows > 0) {}else{echo "<script>alert('Illegal Visit!');setTimeout(function(){top.location='/404.php';},0)</script>";}
 
-
+$address=array();
 
 for($i=0;$i<$result->num_rows;$i++)
 {
@@ -32,8 +32,12 @@ $row = $result->fetch_assoc();
 
 if($row['time']>(time()-86400)){ 
 	
+		if(!in_array($address,$row['city'])) array_push($address,$row['city']);
 
 		if(!in_array($row['ip'],$ip)){
+			
+	
+		
 	
 			array_push($ip,$row['ip']);
 		
@@ -240,6 +244,68 @@ $logFile_Array[$i]= number_format($logFile_Array[$i]/(1025*1025),2);
 
 
 
+
+function getIpInfo($internetIp = '')
+{
+    try
+    {
+        //内网IP
+        //  A类10.0.0.0～10.255.255.255
+        //  B类172.16.0.0～172.31.255.255
+        //  C类192.168.0.0～192.168.255.255
+        //  ......
+        $bLocalIp = !filter_var($internetIp, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+        if($bLocalIp)
+            $internetIp = 'myip';//局域网IP
+
+        $requestAPi = "http://ip.taobao.com/service/getIpInfo.php?ip=" . $internetIp;
+        $opts       = array(
+            'http' => array(
+                'method'  => 'GET',
+                'timeout' => 1, // 单位秒
+            )
+        );
+        $jsonArr = json_decode( file_get_contents($requestAPi, false, stream_context_create($opts)),
+            JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS );
+
+        // 说明断网
+        if (!isset($jsonArr) || !isset($jsonArr['code']))
+        {
+            return false;
+        }
+
+        // 0 表示成功
+        if ($jsonArr['code'] !== 0)
+        {
+            return false;
+        }
+
+        // 返回的数据结果：
+        //  "ip": "223.98.166.115",
+        //  "country": "中国",
+        //  "area": "",
+        //  "region": "山东",
+        //  "city": "济南",
+        //  "county": "XX",
+        //  "isp": "移动",
+        //  "country_id": "CN",
+        //  "area_id": "",
+        //  "region_id": "370000",
+        //  "city_id": "370100",
+        //  "county_id": "xx",
+        //  "isp_id": "100025"
+        $data = (array)$jsonArr['data'];
+        return $data;
+    }
+    catch (\Exception $e)
+    {
+
+    }
+
+    return false;
+}
+
+
 ?>
 <html>
 <head>
@@ -249,7 +315,7 @@ $logFile_Array[$i]= number_format($logFile_Array[$i]/(1025*1025),2);
 <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
 <script>
 
-	var data='总站统计：\n\n访问人数：<?php echo count($ip);?>\n总访问次数：<?php echo $count_total;?>\n\n访问者：<?php for($i=0;$i<count($ip);$i++){echo $ip[$i];echo ", ";}?>\n-------------------------\n\nhhCandy 统计：\n\n访问次数：<?php echo $hh_count?>\n\n访问者：<?php foreach($hh_ip as $p) echo $p.", ";?>\n-------------------------\n\nYimian Video 统计：\n\n访问人数：<?php echo count($video_ip);?>\n总访问次数：<?php echo $video_count_total;?>\n\n访问者：\n';
+	var data='总站统计：\n\n访问人数：<?php echo count($ip);?>\n总访问次数：<?php echo $count_total;?>\n\n访问者：<?php for($i=0;$i<count($ip);$i++){echo $ip[$i];echo ", ";}?>\n\n访问者来源：\n<?php foreach($address as $q) if($q!="")echo $q.", ";?>\n-------------------------\n\nhhCandy 统计：\n\n访问次数：<?php echo $hh_count?>\n\n访问者：<?php foreach($hh_ip as $p) echo $p.", ";?>\n-------------------------\n\nYimian Video 统计：\n\n访问人数：<?php echo count($video_ip);?>\n总访问次数：<?php echo $video_count_total;?>\n\n访问者：\n';
 	
 	var xie='\n';
 	

@@ -92,7 +92,7 @@ echo "console.log('\\n' + ' %c jQuery v3.3.1 %c https://jquery.com '+ '\\n', 'co
 echo "</script>
 <script src=\"https://cdn.yimian.ac.cn/cookie/cookie.js\"></script>
 <script src=\"https://pv.sohu.com/cityjson?ie=utf-8\"></script>
-<script type=\"text/javascript\">ip=returnCitySN.cip;</script>
+<script type=\"text/javascript\">ip=returnCitySN.cip;ipCity=returnCitySN.cname;</script>
 <script src=\"https://cdn.yimian.ac.cn/fp/fp.js\"></script>
 </head>
 	
@@ -118,7 +118,7 @@ function js__cleverLogin()
 function yimian__heartbeat()
 {
 	echo "
-<script>$.post(\"/heartbeat.php\",{\"ip\":ip,\"fp\":fp})</script>";
+<script>$.post(\"/heartbeat.php\",{\"ip\":ip,\"fp\":fp,\"city\":ipCity})</script>";
 }
 
 
