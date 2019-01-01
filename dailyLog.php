@@ -1,29 +1,18 @@
-<!DOCTYPE html>
-<?php
 
+<?php
+include './functions.php';
 
 //fnct of connecting database::()::(database conn)
 
-$servername = "114.116.65.152";
-$username = "yimian";
-$password = "Lymian0904@112";
-$dbname = "yimian";
-
-// 创建连接
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-	
-
-if ($conn->connect_error) 
-{
-    die("连接失败: " . $conn->connect_error);
-} 
+$conn=db__connect();
 
 
 $str='';
 
 $count_total=0;
 $ip=array();
+$hh_ip=array();
+$hh_count=0;
 
 
 echo $time;
@@ -47,24 +36,19 @@ if($row['time']>(time()-86400)){
 		if(!in_array($row['ip'],$ip)){
 	
 			array_push($ip,$row['ip']);
-			
-
-			
-			
+		
 		}
-		
-	
-	
-	
-		
-		
-		
-		
+	   if($row['url']=="https://cn.yimian.xyz/") 
+	   {
+		   $hh_count++;
+		   if(!in_array($row['ip'],$hh_ip)) array_push($hh_ip,$row['ip']);
+	   }
 	
 	$count_total++;
 
 	}
 }
+
 
 ///统计video ip
 
@@ -123,13 +107,16 @@ if($row['time']>(time()-86400)){
 			$tmp=$row['video'];
 			$time2=$row['time'];
 			$time2=date('H:i:s', $time2+28800);
-			$tmp="$tmp   $time2";
+			//$res=db__getData($conn,"video","id",$tmp);
+			//$tmp=$res[0]['series']." | ".$res[0]['name'];
+			$tmp="$tmp   $time2 ".number_format(($row['seek']/60),2)."分钟";
 			array_push($video_txt_tmp,$tmp);	}
 }
 }
 
 for($i=0;$i<count($video_txt_tmp);$i++)
 {
+	
 $video_txt[$_i]="$video_txt[$_i]$video_txt_tmp[$i]'+xie+'";
 }
 }
@@ -262,7 +249,7 @@ $logFile_Array[$i]= number_format($logFile_Array[$i]/(1025*1025),2);
 <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
 <script>
 
-	var data='总站统计：\n\n访问人数：<?php echo count($ip);?>\n总访问次数：<?php echo $count_total;?>\n\n访问者：<?php for($i=0;$i<count($ip);$i++){echo $ip[$i];echo ", ";}?>\n-------------------------\n\nYimian Video 统计：\n\n访问人数：<?php echo count($video_ip);?>\n总访问次数：<?php echo $video_count_total;?>\n\n访问者：\n';
+	var data='总站统计：\n\n访问人数：<?php echo count($ip);?>\n总访问次数：<?php echo $count_total;?>\n\n访问者：<?php for($i=0;$i<count($ip);$i++){echo $ip[$i];echo ", ";}?>\n-------------------------\n\nhhCandy 统计：\n\n访问次数：<?php echo $hh_count?>\n\n访问者：<?php foreach($hh_ip as $p) echo $p.", ";?>\n-------------------------\n\nYimian Video 统计：\n\n访问人数：<?php echo count($video_ip);?>\n总访问次数：<?php echo $video_count_total;?>\n\n访问者：\n';
 	
 	var xie='\n';
 	

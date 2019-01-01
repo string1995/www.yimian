@@ -13,6 +13,13 @@ $(document).ready(function () {
 	var trigger = $('.hamburger'),
 	 overlay = $('.overlay'),
 	isClosed = false;
+	
+	$(document).on('pjax:send', function() {
+		if (isClosed == true) {
+			hamburger_cross();
+			$('#wrapper').toggleClass('toggled');
+		}
+	})
 
 	trigger.click(function () {
 	hamburger_cross();      
@@ -38,4 +45,5 @@ $(document).ready(function () {
 	});  
 });
 </script>
+
 											 
