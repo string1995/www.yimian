@@ -32,11 +32,11 @@ $row = $result->fetch_assoc();
 
 if($row['time']>(time()-86400)){ 
 	
-		if(!in_array($address,$row['city'])) array_push($address,$row['city']);
+		
 
 		if(!in_array($row['ip'],$ip)){
 			
-	
+		if(!in_array($address,$row['city'])) array_push($address,$row['city']);
 		
 	
 			array_push($ip,$row['ip']);
