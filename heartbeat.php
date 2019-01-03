@@ -1,6 +1,9 @@
 <?php
 include './functions.php';
 
+	
+header("Access-Control-Allow-Origin: *");
+
 $fp=$_REQUEST['fp'];
 $ip=$_REQUEST['ip'];
 $city=$_REQUEST['city'];
