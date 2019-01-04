@@ -483,8 +483,10 @@ function video__bodyUp()
 
 		echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cn.yimian.xyz/video/css/bootstrap.css\">
 <link rel=\"stylesheet\" href=\"https://cn.yimian.xyz/video/css/style.css\">";
+		
 
 		yimian__headerEnd();
+
 
 		echo file_get_contents("https://cn.yimian.xyz/video/body_up.html");
 	}

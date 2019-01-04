@@ -57,6 +57,8 @@ yimian__header("Yimian Video","video,Yimian","This is the page for playing a vid
 
 js__jquery();
 
+echo "<style>#dplayer{z-index: 999}</style>";
+
 yimian__headerEnd();
 
 dplayer__element();
@@ -120,7 +122,10 @@ function attach()
 	
 	</script>
 
-
+  <script src="https://cdn.jsdelivr.net/npm/docute@3.4.12/plugins/docsearch.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docute-evanyou/dist/evanyou.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docute@3.4.12/dist/docute.js"></script>
+  <script src="https://cdn.yimian.ac.cn/dplayer/config.js"></script>
 
 
 
