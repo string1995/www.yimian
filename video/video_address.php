@@ -5,6 +5,13 @@ include '../functions.php';
 $id=$_REQUEST['id'];
 $fp=$_REQUEST['fp'];
 
+
+if(isset($_SESSION['s_fp'])) 
+{
+	if($_SESSION['s_fp']!=$fp) die();
+}
+
+
 if(!isset($fp)||$fp=="") die();
 
 
