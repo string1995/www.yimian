@@ -96,7 +96,7 @@ function newVideo(id,next,seek)
 			
 			if(!seek){seek=cookie.get('vTime_'+g_vId)}
 			
-			newVideo_detail(msg.id,msg.url1,next,seek,msg.aid);
+			newVideo_detail(msg.id,'https://cn.yimian.xyz/video/video_address.php?fp='+fp+'&id='+msg.id,next,seek,msg.aid);
 			cookie.set('vWatching',g_vId);
 			//record video for usr
 			timeUpdate_count=0;

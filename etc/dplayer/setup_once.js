@@ -102,7 +102,7 @@ $.ajax({
     			volume: 0.7,
     			mutex: true,
     			video: {
-					url: g_vUrl1
+					url: 'https://cn.yimian.xyz/video/video_address.php?fp='+fp+'&id='+g_vId
     			},
 				danmaku: {
 					id: g_vId,
