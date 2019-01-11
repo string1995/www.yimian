@@ -59,6 +59,8 @@ js__jquery();
 
 echo "<style>#dplayer{z-index: 999}</style>";
 
+js__device();
+
 yimian__headerEnd();
 
 dplayer__element();
@@ -122,11 +124,9 @@ function attach()
 	
 	</script>
 
-  <script src="https://cdn.jsdelivr.net/npm/docute@3.4.12/plugins/docsearch.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docute-evanyou/dist/evanyou.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docute@3.4.12/dist/docute.js"></script>
-  <script src="https://cdn.yimian.ac.cn/dplayer/config.js"></script>
-
+<script>
+if(!device.mobile()) $("#dplayer").css({"height":"auto","width":"80%","margin":"auto"});
+</script>
 
 
 <?
