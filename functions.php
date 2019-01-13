@@ -172,6 +172,13 @@ function db__connect($servername="",$username="",$password="",$dbname="")
 function db__rowNum($conn,$table,$clmnName="",$value="",$clmnName2="",$value2="")
 {
 	
+	$table=db__antisql($table);
+	$clmnName=db__antisql($clmnName);
+	$value=db__antisql($value);
+	$clmnName2=db__antisql($clmnName2);
+	$value2=db__antisql($value2);
+	
+	
 	if($clmnName=="") $sql = "SELECT COUNT(*) FROM $table";
 	elseif($clmnName2=="") $sql = "SELECT COUNT(*) FROM $table where $clmnName='$value'";
 	else $sql = "SELECT COUNT(*) FROM $table where $clmnName='$value' AND $clmnName2='$value2'";
@@ -184,6 +191,14 @@ function db__rowNum($conn,$table,$clmnName="",$value="",$clmnName2="",$value2=""
 //get row data from database::(data_cnnct var, table name,column name, column value)::(row info)
 function db__getData($conn,$table,$clmnName="",$value="",$clmnName2="",$value2="")
 {
+	
+	$table=db__antisql($table);
+	$clmnName=db__antisql($clmnName);
+	$value=db__antisql($value);
+	$clmnName2=db__antisql($clmnName2);
+	$value2=db__antisql($value2);
+		
+
 	if($clmnName=="") $sql = "SELECT * FROM $table";
 	elseif($clmnName2=="") $sql = "SELECT * FROM $table where $clmnName='$value'";
 	else $sql = "SELECT * FROM $table where $clmnName='$value' AND $clmnName2='$value2'";
@@ -204,7 +219,11 @@ function db__getData($conn,$table,$clmnName="",$value="",$clmnName2="",$value2="
 //fnct for insert a row to database
 function db__insertData($conn,$table,$content)
 {	
+	$table=db__antisql($table);
+	
 	$key=array_keys($content);
+	
+	$key=db__antisql($key);
 	
 	$sql="insert INTO $table (";
 	
@@ -219,6 +238,7 @@ function db__insertData($conn,$table,$content)
 	for($i=0;$i<count($key);$i++)
 	{
 		$tmp_key=$key[$i];
+		$content[$tmp_key]=db__antisql($content[$tmp_key]);
 		$sql.="'$content[$tmp_key]'";
 		if($i!=count($key)-1) $sql.=", ";
 	}
@@ -234,23 +254,27 @@ function db__insertData($conn,$table,$content)
 function db__updateData($conn,$table,$content,$index)
 {	
 	$key=array_keys($content);
+	$key=db__antisql($key);
 	
 	$sql="UPDATE $table SET ";
 	
 	for($i=0;$i<count($key);$i++)
 	{
 		$tmp_key=$key[$i];
+		$content[$tmp_key]=db__antisql($content[$tmp_key]);
 		$sql.="$key[$i]='$content[$tmp_key]'";
 		if($i!=count($key)-1) $sql.=", ";
 	}
 	
 	$key=array_keys($index);
+	$key=db__antisql($key);
 	
 	$sql.=" WHERE ";
 	
 	for($i=0;$i<count($key);$i++)
 	{
 		$tmp_key=$key[$i];
+		$index[$tmp_key]=db__antisql($index[$tmp_key]);
 		$sql.="$tmp_key='$index[$tmp_key]'";
 		if($i!=count($key)-1) $sql.=" AND ";
 	}
@@ -283,6 +307,11 @@ function db__pushData($conn,$table,$content,$index="",$is_force=1)
 		db__insertData($conn,$table,$content);
 }
 
+//anti sql
+function db__antisql($str)
+{
+	return(str_ireplace("'","",$str));
+}
 
 
 /***tools***/
