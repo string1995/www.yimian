@@ -8,6 +8,7 @@ var g_vUrl1='';
 var g_vUrl2='';
 var g_vIdd=0;
 var g_aid=0;
+var err=0;
 
 const dp = new DPlayer({
     container: document.getElementById('dplayer'),
@@ -40,11 +41,21 @@ dp.on('timeupdate',function dpTimeRecord(){if(g_vId!=234&&g_vId!=0)cookie.set('v
 dp.on('ended',function dpEnd(){cookie.del('vTime_'+g_vId);nextVideo();});
 
 //lstn error
-dp.on('error',function dpError(){newVideo(234,1,6);});
+dp.on('error',function dpError(){
+	if(err<8)
+	{
+		var sk=dp.video.currentTime;
+		newVideo_detail(g_vId,'https://cn.yimian.xyz/video/video_address.php?fp='+fp+'&id='+g_vId,1,sk+2,null,1);
+		//alert(dp.video.currentTime);
+		err++;
+	}
+	else
+		newVideo(234,1,6);
+});
 
 
 //functuion for switch video by id and url
-function newVideo_detail(id,url,next,seek,aid)
+function newVideo_detail(id,url,next,seek,aid,notice)
 {
 	if(!aid)
 	dp.switchVideo({
@@ -67,8 +78,9 @@ function newVideo_detail(id,url,next,seek,aid)
 		addition: ['https://api.prprpr.me/dplayer/v3/bilibili?aid='+aid],
 		user: fp
 	});
-	if(seek) {dp.seek(seek);dp.notice('已跳转至上次播放位置..', 3000);}
+	if(seek) {dp.seek(seek);if(!notice) dp.notice('已跳转至上次播放位置..', 3000);else dp.notice('探测到视频错误，尝试修复中... 修复成功！', 2000);}
 	if(next) dp.play();
+	
 }
 
 //function for create a new video

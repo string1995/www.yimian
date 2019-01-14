@@ -120,6 +120,7 @@ function attach()
 	(dp.danmaku.dan.length>1500)&&$("#dansFrom").html("DansBilibili: On");
 	$("#dansLength").html("DansAmount: "+dp.danmaku.dan.length);
 	$("#back").html("<a href='./list.php?idd="+g_vIdd+"'>Click here to go Back~</a>");
+	
 }
 	
 	</script>
