@@ -105,7 +105,21 @@ $(\"#next\").on(\"click\",function (){nextVideo();});
 </div>
 <script>
 $("#usrName").html("UserName: <?php if(isset($_SESSION['s_usr']))echo $_SESSION['s_usr'];else
-{echo "没有登录？<a href='https://cn.yimian.xyz/login?from=https://cn.yimian.xyz/video/video.php'>戳我注册~</a>";}?>");
+{
+	if(isset($_COOKIE['fp']))
+	{
+		$fp=$_COOKIE['fp'];
+		
+		$resfp=db__getData($conn,"fp","fp",$fp);
+		if($resfp[0]['usr']==null||$resfp[0]['usr']=="") echo "没有登录？<a href='https://cn.yimian.xyz/login?from=https://cn.yimian.xyz/video/video.php'>戳我注册~</a>";
+		else {
+			$resusr=db__getData($conn,"user","tel",$resfp[0]['usr']);
+			echo $resusr[0][name];
+		}
+		
+	}
+	else
+	echo "没有登录？<a href='https://cn.yimian.xyz/login?from=https://cn.yimian.xyz/video/video.php'>戳我注册~</a>";}?>");
 	
 function attach()
 {
