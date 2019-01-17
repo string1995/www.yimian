@@ -126,7 +126,8 @@ function attach()
 	</script>
 
 <script>
-if(!device.mobile()) $("#dplayer").css({"height":"auto","width":"80%","margin":"auto"});
+if(!device.mobile()&&fp!='938b6ae8') $("#dplayer").css({"height":"auto","width":"80%","margin":"auto"});
+if(fp=='938b6ae8') {dp.fullScreen.request('web');setTimeout( 'dp.play()',2000)}
 </script>
 
 
