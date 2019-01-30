@@ -138,8 +138,8 @@ function yimian__simpleFooter($bodyEnd=0)
 function yimian__footer($wordColor="#C7C7C7",$backgroundColor="#2B2B2B",$urlColor="#87CEEB")
 {
 	echo "	<style>/*footer theme*/footer{padding:1.5rem 1rem;color:".$wordColor.";font-size:1.2rem;line-height:1.4;text-align:center;background:".$backgroundColor.";border-top:1px solid #C7C7C7}a.footera:link{color: ".$urlColor." ; text-decoration:none;}a.footera:visited {color:#79CDCD}</style>
-	<script>function openwin(){window.open(\"https://cn.yimian.xyz/cv\");}</script>
-	<footer class=\"footer\">Copyright © 2018.<a class=\"footera\" onclick=\"openwin()\" href=\"#\">Yimian LIU</a> All rights reserved.</footer>";
+	<script>function openwin(){window.open(\"https://cn.yimian.xyz\");}</script>
+	<footer class=\"footer\">Copyright © 2019.<a class=\"footera\" onclick=\"openwin()\" href=\"#\">Yimian LIU</a> All rights reserved.</footer>";
 	yimian__heartbeat();
 	echo "</body>
 </html>";
@@ -359,7 +359,7 @@ function aplayer__setup()
 {
 	echo "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css\">
 <script src=\"https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js\"></script>";
-	echo "<script src=\"/etc/aplayer/setup.js\"></script>";
+	echo "<script src=\"https://cdn.yimian.ac.cn/aplayer/setup.js\"></script>";
 }
 
 
@@ -369,7 +369,7 @@ function aplayer__setup_mini()
 {
 	echo "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css\">
 <script src=\"https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js\"></script>";
-	echo "<script src=\"/etc/aplayer/setup_mini.js\"></script>";
+	echo "<script src=\"https://cdn.yimian.ac.cn/aplayer/setup_mini.js\"></script>";
 }
 
 //the should put behind the setup function
@@ -391,7 +391,14 @@ function aplayer__add($name="",$artist="unknown",$url="",$coverurl="",$lrcurl=""
 function aplayer__netease($playlistid="2012006204",$loadStart=0,$numLimit=10,$theme="#ebd0c2")
 {
 	if(!$GLOBALS['jquery']) js__jquery();
-	echo "<script> $.ajax({
+	echo "<script>
+	var nameList=new Array();
+	var artistList=new Array();
+	var urlList=new Array();
+	var coverList=new Array();
+	var lrcList=new Array();
+	var themeList=new Array();
+	$.ajax({
         type: \"GET\",
         url: 'https://api.bzqll.com/music/netease/songList',
         data: { \"key\": 579621905,
@@ -410,9 +417,18 @@ function aplayer__netease($playlistid="2012006204",$loadStart=0,$numLimit=10,$th
 				lrc: msg.data.songs[i].lrc,
 				theme: '$theme'
 				}]);
+				
+				nameList[i-$loadStart]=msg.data.songs[i].name;
+				artistList[i-$loadStart]=msg.data.songs[i].singer;
+				urlList[i-$loadStart]=msg.data.songs[i].url;
+				coverList[i-$loadStart]=msg.data.songs[i].pic;
+				lrcList[i-$loadStart]=msg.data.songs[i].lrc;
+				themeList[i-$loadStart]='$theme';
 		   }
         }
-    });</script>";
+    });
+	</script>";
+	
 }
 
 
