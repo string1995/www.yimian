@@ -129,7 +129,7 @@ function attach()
 	$("#videoName").html("VideoName: "+g_vName);
 	$("#videoId").html("VideoId: "+g_vId);
 	$("#videoLength").html("VideoDuration: "+dp.video.duration+'s');
-	$("#videoDownload").html("VideoDownloadUrl: "+g_vUrl2);
+	$("#videoDownload").html("VideoDownloadUrl: <a href='"+g_vUrl2+"'>"+g_vUrl2+"</a>");
 	$("#videoState").html("PlayState: "+!dp.video.paused);
 	$("#videoSeek").html("PlaySeek: "+dp.video.currentTime+'s');
 	(dp.danmaku.dan.length>1500)||$("#dansFrom").html("DansBilibili: Off");

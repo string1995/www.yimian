@@ -22,7 +22,7 @@ const dp = new DPlayer({
     volume: 0.7,
     mutex: true,
     video: {
-        url: 'https://obs-410c.obs.myhwclouds.com/video/404.mp4'
+        url: 'https://cn.yimian.xyz/video/404.mp4'
     },
     danmaku: {
         id: 'null',

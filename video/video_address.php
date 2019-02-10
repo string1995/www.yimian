@@ -8,11 +8,11 @@ $fp=$_REQUEST['fp'];
 
 if(isset($_SESSION['s_fp'])) 
 {
-	if($_SESSION['s_fp']!=$fp) die();
+	if($_SESSION['s_fp']!=$fp) {header("Location: https://yimian-video.obs.myhwclouds.com/404.mp4");die();}
 }
 
 
-if(!isset($fp)||$fp=="") die();
+if(!isset($fp)||$fp=="") {header("Location: https://yimian-video.obs.myhwclouds.com/404.mp4");die();}
 
 
 $conn=db__connect();

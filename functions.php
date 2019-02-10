@@ -534,7 +534,7 @@ function video__bodyUp()
 	{
 		yimian__header("Yimian Video","video,Yimian","This is the page for showing video class.");
 
-		echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cn.yimian.xyz/video/css/bootstrap.css\">
+		echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\">
 <link rel=\"stylesheet\" href=\"https://cn.yimian.xyz/video/css/style.css\">";
 		
 
