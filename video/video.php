@@ -1,6 +1,8 @@
 <?php
 include '../functions.php';
 
+$conn=db__connect();
+
 if(isset($_COOKIE['fp']))
 {
 	$fp=$_COOKIE['fp'];
