@@ -1,7 +1,6 @@
 <?php
 include './functions.php';
 
-	
 header("Access-Control-Allow-Origin: *");
 
 $fp=$_REQUEST['fp'];

@@ -333,10 +333,10 @@ function getIpInfo($internetIp = '')
 	
 var str=data;
 	
-	/*
+
+	    	
 	
-	
-	    $.ajax({
+	$.ajax({
         type: "POST",
         url: 'https://mail.yimian.xyz/log.php',
         data: { "to": "admin@yimian.xyz",
@@ -350,7 +350,7 @@ var str=data;
 		success: function(msg){
 			alert(msg.text);
 		}
-    });*/
+    });
 </script>
 	</head>
 	<body>
